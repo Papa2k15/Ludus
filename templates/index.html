@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Ground</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baumans">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/custombox.min.css">
+</head>
+
+<body>
+    <div id="error-box" hidden="">
+    	<span id="error-message"></span>
+    </div>
+    <div class="container-fluid hidden-xs hidden-sm">
+        <div id="pg-slideshow"></div>
+        <div id="bg-tint"></div>
+        <div class="row" id="header">
+            <div class="col-md-3"><img src="../static/img/PlayGroundLogo.png" width="100" height="100" id="pg-logo"></div>
+            <div class="col-md-5 col-md-push-4">
+                <form id="login-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input class="form-control input-sm pg-input" type="text" placeholder="Username">
+                            </div>
+                            <div class="col-md-5">
+                                <input class="form-control input-sm pg-input" type="password" placeholder="Password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6 col-md-push-2">
+                                <button class="btn btn-default btn-block pg-btn" type="button">Log In</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row" id="login-card">
+            <div class="col-md-3" id="title-bar"><img src="../static/img/Play Ground Logo 2.png" width="100%" id="pg-logo-2">
+                <h3 class="text-center">Where all</h3>
+                <h1 class="text-center" id="gt"> </h1>
+                <h3 class="text-center"> gamers come together.</h3></div>
+            <div class="col-md-4 col-md-push-4" id="register-card">
+                <form id="ls-register-form">
+                	<div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control input-sm pg-input" 
+                                name="username"
+                                id="ls-username" maxlength="60" data-validation="required"
+                                type="text" placeholder="Username">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input class="form-control input-sm pg-input" 
+                                name="firstname"
+                                 id="ls-firstname" maxlength="60" data-validation="required"
+                                type="text" placeholder="First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control input-sm pg-input" 
+                                name="lastname"
+                                 id="ls-lastname" maxlength="60" data-validation="required"
+                                type="text" placeholder="Last Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input class="form-control input-sm pg-input" 
+                                name="email"
+                                 id="ls-email" data-validation="required email"
+                                type="email" placeholder="Email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input class="form-control input-sm pg-input" 
+                                id="ls-password"
+                                name="password" data-validation="strength required"
+                                data-validation-strength="2"
+                                type="password" placeholder="Password">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control input-sm pg-input" 
+                                id="ls-confirm-password"
+                                name="confirm-password" data-validation="required"
+                                type="password" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select id="ls-month-select" name="month"
+                                data-validation="custom" data-validation-regexp="\d+"
+                                class="form-control input-sm pg-input">
+                                    <option value="-1">Month</option>
+                                    {% for x in months %}
+                                    	<option value="{{x[0]}}">{{x[1]}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="ls-day-select" name="day"
+                                data-validation="birthday custom" data-validation-regexp="\d+"
+                                class="form-control input-sm pg-input">
+                                    <option value="-1">Day</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select id="ls-year-select" name="year"
+                                data-validation="custom" data-validation-regexp="\d+"
+                                class="form-control input-sm pg-input">
+                                    <option value="-1">Year</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label class="control-label">
+                                <input id="ls-male-radio" 
+                                name="gender" required="required"
+                                type="radio">Male</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="radio">
+                                <label class="control-label">
+                                 <input id="ls-female-radio" 
+                                 name="gender"
+                                 type="radio">Female</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default btn-block pg-btn" type="submit">Create PlayGround Account</button>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                         <div class="col-md-12"><a href="#" class="pg-link">Forgot Password?</a></div>
+                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="login-card-ss" class="container-fluid hidden-md hidden-lg">
+       <div class="pg-stripe"></div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="login-card-ss-container">
+                            <div class="row">
+                                <div class="col-md-12"><img src="../static/img/PlayGroundLogo.png" id="login-card-logo"></div>
+                            </div>
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-user"></i></span></div>
+                                                <input class="form-control pg-input" type="text" placeholder="Username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-lock"></i></span></div>
+                                                <input class="form-control pg-input" type="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button class="btn btn-default pg-btn btn-block" type="button">Login </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <form id="ss-register-form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon pg-group-addon"><span>@</span></div>
+                                                <input class="form-control pg-input" 
+                                                id="ss-username"
+                                                name="username" maxlength="60" 
+                                                data-validation="required alphanumeric"
+                                                data-validation-allowing="-_"
+                                                type="text" placeholder="Username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-user"></i></span></div>
+                                                <input class="form-control pg-input" 
+                                                id="ss-firstname"
+                                                name="firstname" maxlength="60" data-validation="required"
+                                                type="text" placeholder="First Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-user"></i></span></div>
+                                                <input class="form-control pg-input" 
+                                                id="ss-lastname"
+                                                name="lastname" maxlength="60" data-validation="required"
+                                                type="text" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-envelope"></i></span></div>
+                                                <input class="form-control pg-input" 
+                                                id="ss-email"
+                                                name="email" data-validation="required email"
+                                                type="text" placeholder="Email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-lock"></i></span></div>
+                                                <input class="form-control pg-input" 
+                                                id="ss-password"
+                                                name="password" data-validation="required strength"
+                                                data-validation-strength="2"
+                                                type="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-lock"></i></span></div>
+                                                <input class="form-control pg-input" 
+                                                id="ss-confirm-password"
+                                                name="confirm_password" data-validation="required confirmation"
+                                                data-validation-confirm="password"
+                                                data-validation-error-msg="Passwords do not match"
+                                                type="password" placeholder="Confirm Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                	<div class="col-xs-4">
+                                        <div class="form-group">
+                                           <select id="ss-month-select" name="month" 
+                                           data-validation="custom" data-validation-regexp="\d+"
+                                           class="form-control input-sm pg-input">
+			                                    <option value="-1">Month</option>
+			                                    {% for x in months %}
+			                                    	<option value="{{x[0]}}">{{x[1]}}</option>
+			                                    {% endfor %}
+			                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+											<select id="ss-day-select" name="day" 
+											data-validation="birthday custom" data-validation-regexp="\d+"
+											class="form-control input-sm pg-input">
+			                                    <option value="-1">Day</option>
+			                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+											<select id="ss-year-select" name="year" 
+											data-validation="custom" data-validation-regexp="\d+"
+											class="form-control input-sm pg-input">
+			                                    <option value="-1">Year</option>
+			                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+		                                <div class="col-xs-6">
+		                                    <div class="form-group">
+												<div class="radio">
+					                                <label class="control-label">
+				                                    <input name="gender" required="required"
+				                                    id="ss-male-radio"
+				                                    type="radio" value="male">Male</label>
+					                            </div>
+		                                    </div>
+		                                </div>
+		                                <div class="col-xs-6">
+		                                    <div class="form-group">
+		                                      	<div class="radio">
+					                                <label class="control-label">
+				                                    <input name="gender" 
+				                                    id="ss-female-radio"
+				                                    type="radio" value="female">Female</label>
+					                            </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+                                  <div class="row">
+		                                <div class="col-md-12">
+		                                    <div class="form-group">
+		                                        <button class="btn btn-default pg-btn btn-block" type="submit">Create PlayGround Account</button>
+		                                    </div>
+		                                </div>
+		                            </div>
+                            </form>
+                            <div class="row">
+                                <div class="col-md-12"><a href="#" class="pg-link">Forgot Password?</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/typed.min.js"></script>
+    <script src="../static/js/form-validator/jquery.form-validator.min.js"></script>
+    <script src="../static/js/custombox.min.js"></script>
+    <script src="../static/js/index_script.js"></script>
+</body>
+
+</html>
