@@ -2,6 +2,9 @@ import string
 import json
 
 
+ss_temp_folder = 'ss_view/'
+ls_temp_folder = 'ls_view/'
+
 deployment_db = 'pg.db'
 
 alpha_list = list(string.ascii_uppercase)
