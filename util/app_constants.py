@@ -23,9 +23,9 @@ _code_ = 'code'
 #Request Error Codes
 class pg_responses(object):
     INV_LOGIN = {'code':'pg_1','description':"Invalid username and password."}
-    REG_SUCCES = {'code':'pg_2','description':"Registration Success."}
+    REG_SUCCES = {'code':'pg_2','description':"Registration completed, you may now login."}
     REG_FAILED = {'code':'pg_3','description':"Registration Failed."}
-    EMAIL_IN_USE = {'code':'pg_4','description':"Email is already in use."}
+    EMAIL_IN_USE = {'code':'pg_4','description':"Email has already been registered with another account."}
     USERNAME_IN_USE = {'code':'pg_5','description':"Username is already in use."}
     UNK_ERROR  = {'code':'pg_error','description':"Something went wrong, please try again."}
 

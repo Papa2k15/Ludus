@@ -2,6 +2,7 @@ $(document).ready(function(){
    
 	//Slide Show Code
     var slideshow = $('#pg-slideshow');
+    var ssSlidshow = $('#pg-bg-stripe');
     var slides = 5;
     var showIndex = 1;
     
@@ -10,6 +11,7 @@ $(document).ready(function(){
             showIndex = 1;
         }
         slideshow.css('background-image','url(../static/img/bg_images/pg-wallpaper-'+showIndex+'.jpg)');
+        ssSlidshow.css('background-image','url(../static/img/bg_images/pg-wallpaper-'+showIndex+'.jpg)');
         showIndex++;
     }
     
@@ -74,7 +76,8 @@ $(document).ready(function(){
   
     $.validate({
     	  form : '#ss-register-form,#ls-register-form',
-    	  modules : 'security'
+    	  modules : 'security toggleDisabled',
+    	  disabledFormFilter : 'form'
     });
     
     $.formUtils.addValidator({
@@ -101,6 +104,7 @@ $(document).ready(function(){
     
     $('#ss-register-form,#ls-register-form').submit(function(e){
     	var regSubmit = $.post('/register',$(this).serialize());
+    	var regForm = $(this);
     	regSubmit.done(function(data){
     		var response = $.parseJSON(data);
     		if(response['code'] != "pg_2"){
@@ -109,9 +113,14 @@ $(document).ready(function(){
     	              target: '#error-box',
     	              effect: 'fadein'
     	          });
-    	          e.preventDefault();
     		} else {
-    			$(this).get(0).reset();
+    			$('#error-message').text(response['description']);
+	   			 Custombox.open({
+	   	              target: '#error-box',
+	   	              effect: 'fadein'
+	   	          });
+    			document.getElementById("ss-register-form").reset();
+    			document.getElementById("ls-register-form").reset();
     		}
     	});
     	e.preventDefault();

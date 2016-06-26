@@ -21,6 +21,8 @@ user_profile_table_script = """
     CREATE TABLE "userprofile" (
     'ID'                TEXT PRIMARY KEY,
     `biography`         TEXT DEFAULT '',
+    `favgame`         TEXT DEFAULT '',
+    `favsystem`         TEXT DEFAULT '',
     `profilephoto`      TEXT DEFAULT ''
     );
     """

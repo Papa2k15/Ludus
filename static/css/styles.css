@@ -1,5 +1,5 @@
 div#header{
-  background-color:rgb(255,90,17);
+  background-color: rgba(255,255,255,0.8);
   height:117px;
   border-bottom:3px solid black;
 }
@@ -22,7 +22,7 @@ form#login-form{
   background-color:rgba(255,255,255,0.8);
   border:none;
   border-radius:0px;
-  border-bottom:1px solid #ff5a11;
+  border-bottom:1px solid black;
   color:black;
   box-shadow:initial;
 }
@@ -34,7 +34,7 @@ form#login-form{
 
 .pg-btn{
   background-image:none;
-  color:white;
+  color: black;
   text-shadow:none;
   border:none;
   border-bottom:1px solid black;
@@ -59,12 +59,39 @@ form#login-form{
   box-shadow:none;
 }
 
+.pg-btn-alt{
+  background-image:none;
+  color: white;
+  text-shadow:none;
+  border:none;
+  border-bottom:1px solid white;
+  border-radius:0px;
+  background-color:transparent;
+}
+
+.pg-btn-alt:HOVER{
+  background-color: black;
+  color:white;
+}
+
+.pg-btn-alt:ACTIVE{
+  background-color:black;
+  color: white;
+  box-shadow:none;
+}
+
+.pg-btn-alt:FOCUS{
+  color: white;
+  background-color:transparent;
+  box-shadow:none;
+}
+
 img#pg-logo{
   margin-top:5px;
 }
 
 div#login-card{
-  margin-top:60px;
+  margin-top: 30px;
 }
 
 div#pg-slideshow{
@@ -91,10 +118,6 @@ div#title-bar{
   padding:20px;
 }
 
-del{
-  text-decoration:none;
-}
-
 #logo-container{
   position:absolute;
   top:78px;
@@ -111,8 +134,8 @@ div#register-card{
   margin-top:15%;
   height:inherit;
   padding:25px;
-  background-color:black;
-  border:1px solid white;
+  background-color: rgba(255,255,255,0.7);
+  border: 3px solid black;
   text-align:center;
 }
 
@@ -127,32 +150,43 @@ div#register-card{
 
 div.pg-group-addon{
   border-radius:0px;
-  color:rgb(255,90,17);
+  color:white;
   background-color:black;
   border:none;
 }
 
-.pg-stripe{
+#pg-bg-stripe{
   position:absolute;
   left:0px;
-  top:255px;
+  top:100px;
   width:100%;
-  height:75px;
-  background-color:rgb(255,90,17);
-  border-top:1px solid black;
+  height:250px;
+  background-image: url('../../static/img/bg_images/pg-wallpaper-1.jpg');
+  background-size: cover;
+  background-color: white;
+  border-top: 1px solid black;
   border-bottom:1px solid black;
 }
 
 a.pg-link{
-  color:rgb(255,90,17);
+  color: black;
   text-decoration:underline;
+}
+
+a.pg-link-alt{
+  color: white;
+  text-decoration:underline;
+}
+
+.text-white{
+	color:white;
 }
 
 #error-box {
 	color: white;
 	background-color: black;
 	padding: 10px;
-	border-bottom: 2px solid rgb(255,90,17);
+	border-bottom: 2px solid white;
 }
 
 #profile-header {
