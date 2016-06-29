@@ -12,7 +12,7 @@ import json
 import hashlib
 
 pg_app = Flask(__name__)
-ps_database = 'C:/Users/Owner/git/Ludus/util/databases/pg.db'
+ps_database = 'C:/Users/Gregory Daniels/git/Ludus/util/databases/pg.db'
 
 @pg_app.route('/')
 def index():
