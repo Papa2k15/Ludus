@@ -1,10 +1,6 @@
 import string
 import json
 
-
-ss_temp_folder = 'ss_view/'
-ls_temp_folder = 'ls_view/'
-
 deployment_db = 'pg.db'
 
 alpha_list = list(string.ascii_uppercase)
@@ -27,6 +23,7 @@ class pg_responses(object):
     REG_FAILED = {'code':'pg_3','description':"Registration Failed."}
     EMAIL_IN_USE = {'code':'pg_4','description':"Email has already been registered with another account."}
     USERNAME_IN_USE = {'code':'pg_5','description':"Username is already in use."}
+    LOGIN_SUC = {'code':'pg_6','description':"Login successful, redirecting..."}
     UNK_ERROR  = {'code':'pg_error','description':"Something went wrong, please try again."}
 
 class logging_events(object):
