@@ -75,7 +75,7 @@ $(document).ready(function(){
 	}
   
     $.validate({
-    	  form : '#ss-register-form,#ls-register-form',
+    	  form : '#ss-register-form,#ls-register-form,#ss-login-form,#ls-login-form',
     	  modules : 'security toggleDisabled',
     	  disabledFormFilter : 'form'
     });
@@ -104,24 +104,40 @@ $(document).ready(function(){
     
     $('#ss-register-form,#ls-register-form').submit(function(e){
     	var regSubmit = $.post('/register',$(this).serialize());
-    	var regForm = $(this);
     	regSubmit.done(function(data){
     		var response = $.parseJSON(data);
     		if(response['code'] != "pg_2"){
     			 $('#error-message').text(response['description']);
-    			 Custombox.open({
-    	              target: '#error-box',
-    	              effect: 'fadein'
-    	          });
     		} else {
-    			$('#error-message').text(response['description']);
-	   			 Custombox.open({
-	   	              target: '#error-box',
-	   	              effect: 'fadein'
-	   	          });
     			document.getElementById("ss-register-form").reset();
     			document.getElementById("ls-register-form").reset();
     		}
+    		$('#error-message').text(response['description']);
+  			 Custombox.open({
+  	              target: '#error-box',
+  	              effect: 'fadein'
+  	          });
+    	});
+    	e.preventDefault();
+    });
+    
+    $('#ss-login-form,#ls-login-form').submit(function(e){
+    	var logSubmit = $.post('/login',$(this).serialize());
+    	logSubmit.done(function(data){
+    		var response = $.parseJSON(data);
+    		var rresponse = $.parseJSON(response);
+    		console.log(rresponse['code']);
+    		if(response['code'] != "pg_6"){
+    			 $('#error-message').text(response['description']);
+    			 window.location.href = '/user_profile/' + id
+    		} else {
+    			document.getElementById("ss-login-form").reset();
+    			document.getElementById("ls-login-form").reset();
+    		}
+    		 Custombox.open({
+	              target: '#error-box',
+	              effect: 'fadein'
+	          });
     	});
     	e.preventDefault();
     });
