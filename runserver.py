@@ -11,7 +11,7 @@ from util.app_constants import pg_responses, ss_temp_folder, ls_temp_folder
 import json
 
 pg_app = Flask(__name__)
-ps_database = 'C:/Users/Owner/OneDrive/Ludus/util/databases/pg.db'
+ps_database = 'C:/Users/Gregory Daniels/git/Ludus/util/databases/pg.db'
 
 @pg_app.route('/')
 def index():
