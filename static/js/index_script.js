@@ -125,14 +125,16 @@ $(document).ready(function(){
     	var logSubmit = $.post('/login',$(this).serialize());
     	logSubmit.done(function(data){
     		var response = $.parseJSON(data);
-    		var rresponse = $.parseJSON(response);
-    		console.log(rresponse['code']);
-    		if(response['code'] != "pg_6"){
-    			 $('#error-message').text(response['description']);
-    			 window.location.href = '/user_profile/' + id
-    		} else {
-    			document.getElementById("ss-login-form").reset();
-    			document.getElementById("ls-login-form").reset();
+  			 $('#error-message').html('<span>'+response['login_resp']['description']+'<div class="spinner">'+
+  					  '<div class="double-bounce1"></div>'+
+  					 '<div class="double-bounce2"></div>'+
+  					'</div>');
+    		if(response['login_resp']['code'] == "pg_6"){
+     			document.getElementById("ss-login-form").reset();
+     			document.getElementById("ls-login-form").reset();
+     			window.setTimeout(function () {
+     		        location.href = '/user_profile/' + response['id'];;
+     		    }, 5000);
     		}
     		 Custombox.open({
 	              target: '#error-box',

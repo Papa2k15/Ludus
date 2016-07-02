@@ -1,0 +1,145 @@
+div#ss-sticky-menu{
+  position:fixed;
+  height:55px;
+  background-color:rgba(255,255,255,0.7);
+  padding:10px;
+  width:100%;
+  left:0px;
+  border-bottom:1px solid black;
+  z-index:1000;
+  overflow:hidden;
+}
+
+body{
+  background-color:rgb(41,44,47);
+}
+
+img#ss-menu-logo.img-responsive{
+  max-width:35px;
+}
+
+i#ss-menu-icon{
+  position:absolute;
+  right:20px;
+  top:16px;
+}
+
+#ss-menu-profile-picture{
+  position:absolute;
+  max-width:35px;
+  left:calc(50% - 17.5px);
+  top:10px;
+  border-radius:50%;
+  border:1px solid black;
+}
+
+div#ss-backdrop{
+  z-index:0;
+  margin-top:55px;
+  left:0px;
+  height:200px;
+  background-image:url(../../static/img/cover.jpg);
+  background-size:cover;
+  border-bottom:1px solid black;
+  overflow:hidden;
+}
+
+img#ss-profile-img{
+  max-width:25%;
+  border-radius:50%;
+  margin-top:15px;
+  margin-left:calc(50% - 12.5%);
+  border:4px solid green;
+}
+
+.ss-round-info{
+  color:white;
+  background-color:black;
+  border-radius:50px;
+  padding:10px;
+}
+
+.profile-box{
+  background-color:white;
+  margin-top:15px;
+  overflow:hidden;
+}
+
+#ls-sticky-menu{
+  position:absolute;
+  left:0px;
+  top:0px;
+  height:50px;
+  width:100%;
+  background-color:rgba(255,255,255,0.8);
+  padding:2px;
+  z-index:2;
+}
+
+div#ls-backdrop{
+  height:350px;
+  background-image:url(../../static/img/cover.jpg);
+  background-size:cover;
+  background-position:left center;
+  border-bottom:15px solid rgb(249,249,249);
+}
+
+img#ls-profile-img{
+  margin-top:100px;
+  margin-left:10%;
+  max-width:200px;
+  border-radius:50%;
+}
+
+div#ls-profile-header{
+  position:absolute;
+  width:35%;
+  right:0px;
+  background-color:rgba(0,0,0,0.4);
+  height:calc(100% - 50px);
+  top:50px;
+  color:white;
+  padding:15px;
+}
+
+div#ls-bio{
+  margin-top:25px;
+  height:inherit;
+  color:black;
+  background-color:white;
+  border-bottom:5px solid black;
+}
+
+div#ls-profile-more.row{
+  margin-top:20px;
+}
+
+textarea{
+  resize:none;
+}
+
+img#ls-menu-logo{
+  max-width:46px;
+  margin-right:75%;
+}
+
+img#ls-menu-profile-picture{
+  max-width:45px;
+  border-radius:50%;
+}
+
+div#warpper{
+  position:fixed;
+  background-image:url(../../static/img/cover.jpg);
+  background-size:cover;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index:-2000;
+}
+
+.hoverable:HOVER{
+	cursor: pointer;
+}
+

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user['username']|capitalize }} Profile </title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/fonts/material-icons.css">
+    <link rel="stylesheet" href="../static/css/profile_styles.css">
+    <link href="../static/js/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+    
+</head>
+
+<body>
+    <div class="container-fluid hidden-md hidden-lg" id="ss-profile-view">
+        <div id="ss-sticky-menu"><img class="img-responsive" src="../static/img/PlayGroundLogo.png" id="ss-menu-logo"><img class="img-responsive" src="../static/img/profile.jpg" id="ss-menu-profile-picture"><i class="material-icons" id="ss-menu-icon">menu</i></div>
+        <div class="row" id="ss-backdrop">
+            <div class="col-md-12"><img class="img-responsive" src="../static/img/profile.jpg" id="ss-profile-img"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center ss-round-info" id="ss-username">{{ user['username']|capitalize }} </h3></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="text-center ss-round-info">Current Playing...</h5></div>
+        </div>
+        <div class="row profile-box" id="ss-bio">
+            <div class="col-md-12">
+                <h3 class="text-center">Bio </h3></div>
+            <div class="col-md-12">
+                <p id="ss-bio-paragraph">Student attending North Carolina State University. If you ever want to play add me on Xbox or any other platform that I may have: Papa2k15. </p>
+            </div>
+        </div>
+        <div class="row profile-box" id="ss-about">
+            <div class="col-md-12">
+                <h3 class="text-center">About </h3></div>
+            <div class="col-md-12">
+                <div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td> <i class="material-icons">person</i></td>
+                                <td> 
+                                	<a href="#" class="editable" data-type="text" data-pk="{{user['id']}}" data-url="/post" data-title="Edit Firstname">{{ user['firstname']|capitalize }}</a> 
+                                    <a href="#" class="editable" data-type="text" data-pk="{{user['id']}}" data-url="/post" data-title="Edit Lastname">{{ user['lastname']|capitalize}}</a> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> <i class="material-icons">cake</i></td>
+                                <td> {{user['dateofbirth']|dob_calulator}} </td>
+                            </tr>
+                            <tr>
+                                <td> <i class="material-icons">gamepad</i></td>
+                                <td>Halo 5: Guardians</td>
+                            </tr>
+                            <tr>
+                                <td> <i class="material-icons">videogame_asset</i></td>
+                                <td>Xbox One</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid hidden-xs hidden-sm" id="ls-profile-view">
+        <div id="ls-sticky-menu"><img src="../static/img/PlayGroundLogo.png" id="ls-menu-logo"><img src="../static/img/profile.jpg" id="ls-menu-profile-picture"></div>
+        <div id="warpper"></div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" id="ls-backdrop"><img class="img-responsive" src="../static/img/profile.jpg" id="ls-profile-img">
+                <div id="ls-profile-header">
+                    <h1 class="text-center">{{ user['username']|capitalize }}  </h1>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td> <i class="material-icons">person</i></td>
+                                    <td>
+	                                    <a href="#" class="editable" data-type="text" data-pk="{{user['id']}}" data-url="/post" data-title="Edit Firstname">{{ user['firstname']|capitalize }}</a> 
+	                                    <a href="#" class="editable" data-type="text" data-pk="{{user['id']}}" data-url="/post" data-title="Edit Lastname">{{ user['lastname']|capitalize}}</a> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <i class="material-icons">cake</i></td>
+                                    <td> {{user['dateofbirth']|dob_calulator}}</td>
+                                </tr>
+                                <tr>
+                                    <td> <i class="material-icons">games</i></td>
+                                    <td>Halo 5: Guardians </td>
+                                </tr>
+                                <tr>
+                                    <td> <i class="material-icons">videogame_asset</i></td>
+                                    <td>Xbox One</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-2" id="ls-bio">
+                <h4>Bio </h4>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
+                    quia voluptas sit aspernatur aut odit aut fugit, sed quia </p>
+            </div>
+        </div>
+        <div class="row" id="ls-profile-more">
+            <div class="col-md-2 col-md-offset-2" id="left-col"></div>
+            <div class="col-md-5" id="feed-col"></div>
+            <div class="col-md-1" id="extra-col"></div>
+        </div>
+    </div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+    <script src="../static/js/profile_script.js"></script>
+</body>
+
+</html>

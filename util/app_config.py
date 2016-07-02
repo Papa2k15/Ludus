@@ -12,3 +12,4 @@ def gen_session_val():
     current_time = round(time.time() * 1000)
     prng = random.randint(0, sys.maxint+1)
     return hashlib.md5(str(str(ip)+str(current_time)+str(prng)).encode()).hexdigest()
+

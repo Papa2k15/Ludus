@@ -20,21 +20,27 @@
         <div class="row" id="header">
             <div class="col-md-3"><img src="../static/img/PlayGroundLogo.png" width="100" height="100" id="pg-logo"></div>
             <div class="col-md-5 col-md-push-4">
-                <form id="login-form">
+                <form id="ls-login-form">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-5">
-                                <input class="form-control input-sm pg-input" type="text" placeholder="Username">
+                                <input class="form-control input-sm pg-input" 
+                                name="username" maxlength="30"
+                                data-validation="required"
+                                type="text" placeholder="Username">
                             </div>
                             <div class="col-md-5">
-                                <input class="form-control input-sm pg-input" type="password" placeholder="Password">
+                                <input class="form-control input-sm pg-input" 
+                                name="password" 
+                                data-validation="required"
+                                type="password" placeholder="Password">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-6 col-md-push-2">
-                                <button class="btn btn-default btn-block pg-btn" type="button">Log In</button>
+                                <button class="btn btn-default btn-block pg-btn" type="submit">Log In</button>
                             </div>
                         </div>
                     </div>
@@ -53,7 +59,7 @@
                             <div class="col-md-12">
                                 <input class="form-control input-sm pg-input" 
                                 name="username"
-                                id="ls-username" maxlength="60" data-validation="required"
+                                id="ls-username" maxlength="30" data-validation="required"
                                 type="text" placeholder="Username">
                             </div>
                         </div>
@@ -110,8 +116,8 @@
                                 data-validation="custom" data-validation-regexp="\d+"
                                 class="form-control input-sm pg-input">
                                     <option value="-1">Month</option>
-                                    {% for x in months %}
-                                    	<option value="{{x[0]}}">{{x[1]}}</option>
+                                    {% for x in range(0,12) %}
+                                    	<option value="{{months[0][x]}}">{{months[1][x]}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -171,13 +177,16 @@
                             <div class="row">
                                 <div class="col-md-12"><img src="../static/img/PlayGroundLogo.png" id="login-card-logo"></div>
                             </div>
-                            <form>
+                            <form id="ss-login-form">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-user"></i></span></div>
-                                                <input class="form-control pg-input" type="text" placeholder="Username">
+                                                <input class="form-control pg-input" 
+                                                name="username" maxlength="30"
+                                                data-validation="required"
+                                                type="text" placeholder="Username">
                                             </div>
                                         </div>
                                     </div>
@@ -187,7 +196,10 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <div class="input-group-addon pg-group-addon"><span><i class="glyphicon glyphicon-lock"></i></span></div>
-                                                <input class="form-control pg-input" type="password" placeholder="Password">
+                                                <input class="form-control pg-input" 
+                                                name="password" 
+                                                data-validation="required"
+                                                type="password" placeholder="Password">
                                             </div>
                                         </div>
                                     </div>
@@ -195,7 +207,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <button class="btn btn-default pg-btn btn-block" type="button">Login </button>
+                                            <button class="btn btn-default pg-btn btn-block" type="submit">Login </button>
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +221,7 @@
                                                 <div class="input-group-addon pg-group-addon"><span>@</span></div>
                                                 <input class="form-control pg-input" 
                                                 id="ss-username"
-                                                name="username" maxlength="60" 
+                                                name="username" maxlength="30" 
                                                 data-validation="required alphanumeric"
                                                 data-validation-allowing="-_"
                                                 type="text" placeholder="Username">
@@ -288,8 +300,8 @@
                                            data-validation="custom" data-validation-regexp="\d+"
                                            class="form-control input-sm pg-input">
 			                                    <option value="-1">Month</option>
-			                                    {% for x in months %}
-			                                    	<option value="{{x[0]}}">{{x[1]}}</option>
+			                                     {% for x in range(0,12) %}
+			                                    	<option value="{{months[0][x]}}">{{months[1][x]}}</option>
 			                                    {% endfor %}
 			                                </select>
                                         </div>

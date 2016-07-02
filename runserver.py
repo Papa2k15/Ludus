@@ -1,25 +1,25 @@
 from flask import Flask
 from flask.templating import render_template
-from flask.globals import request
+from flask.globals import request, session
 from util.database_gen import delete_all_tables, build_all_tables
-import datetime
 import cgi
 from flask.helpers import make_response
 import time
 from db import user_dao, security_dao, user_profile_dao
-from util.app_constants import pg_responses
+from util.app_constants import pg_responses, MONTHS
 import json
 import hashlib
+from datetime import datetime
+from util.app_config import gen_secret_key
+from werkzeug.utils import redirect
 
 pg_app = Flask(__name__)
+pg_app.secret_key = gen_secret_key()
 ps_database = 'C:/Users/Gregory Daniels/git/Ludus/util/databases/pg.db'
 
 @pg_app.route('/')
 def index():
-    months_choices = []
-    for i in range(1,13):
-        months_choices.append((i,(datetime.date(2008, i, 1).strftime('%B'))))
-    return render_template('index.html', months = months_choices)
+    return render_template('index.html', months = MONTHS)
 
 @pg_app.route('/login', methods=["POST"])
 def pg_login():
@@ -31,8 +31,9 @@ def pg_login():
         uf = json.loads(user_found)
         us = json.loads(security_dao.get_security(ps_database, uf['id']))
         if us['password'] == login_password:
-            return make_response(json.dumps({'code':pg_responses.LOGIN_SUC,'id':user_found['id']}),200)
-    return make_response(json.dumps(pg_responses.INV_LOGIN),200)
+            session['cuid'] = uf['id']
+            return make_response(json.dumps({'id':uf['id'],'login_resp':pg_responses.LOGIN_SUC}),200)
+    return make_response(json.dumps({'login_resp':pg_responses.INV_LOGIN}),200)
 
 @pg_app.route('/register', methods=["POST"])
 def pg_register():
@@ -62,8 +63,19 @@ def pg_register():
 #Views
 @pg_app.route('/user_profile/<ID>')
 def user_profile(ID):
-    print ID
-    return render_template('profile.html')
+    if not session.get('cuid'):
+        return redirect('/')
+    current_user = json.loads(user_dao.get_user_by_id(ps_database, ID))
+    return render_template('profile.html', user=current_user)
+
+
+
+def dob_calulator(dob):
+    year = int(time.strftime('%B %d, %Y', time.localtime(int(dob)))[-4:])
+    return time.strftime('%B %d, %Y', time.localtime(int(dob))) + " (" + str(datetime.now().year - year) + " Years Old)" 
+
+pg_app.jinja_env.filters['dob_calulator'] = dob_calulator
+
 
 if __name__ == "__main__":
     print 'deleting tables'

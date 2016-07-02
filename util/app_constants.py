@@ -1,5 +1,4 @@
 import string
-import json
 
 deployment_db = 'pg.db'
 
@@ -15,6 +14,8 @@ user_id_length = 15
 _des_ = 'description'
 _code_ = 'code'
 
+MONTHS = [['1','2','3','4','5','6','7','8','9','10','11','12'],
+          ['January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December']]
 
 #Request Error Codes
 class pg_responses(object):
