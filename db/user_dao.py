@@ -3,22 +3,24 @@ import random
 import json
 from util.app_constants import user_id_length, end, start, alpha_list, num_list,\
     char_bit, user_pre
+from datetime import datetime
+import time
     
 def add_user(database, firstname, lastname, email, username, dateofbirth, gender):
     #------------------------------------------------------
     #
     #-------------------------------------------------------
     con = None
-    blogzone_id = None
+    pg_id = None
     try:
         con = lite.connect(database)
         with con:
             cur = con.cursor()
-            blogzone_id = get_id(database)
-            cur.execute("INSERT INTO user (ID, firstname, lastname, email, username, dateofbirth, gender) VALUES(?, ?, ?, ?, ?, ?, ?)",
-                        (blogzone_id, firstname, lastname, email, username, dateofbirth, gender, ))
+            pg_id = get_id(database)
+            cur.execute("INSERT INTO user (ID, firstname, lastname, email, username, dateofbirth, gender, membersince) VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+                        (pg_id, firstname, lastname, email, username, dateofbirth, gender, int(time.mktime(time.strptime(datetime.now().month+"/"+datetime.now().day+"/"+datetime.now().year, "%m/%d/%Y"),))))
             con.commit()
-        return True, blogzone_id
+        return True, pg_id
     except lite.Error:
         return False, -1
     finally:
@@ -38,7 +40,8 @@ def get_user(database, email):
             data = cur.fetchall()
             if len(data) > 0:
                 user = json.dumps({'id':data[0][0],'firstname':data[0][1],'lastname':data[0][2],
-                                     'email':data[0][3], 'username':data[0][4], 'dateofbirth':data[0][5], 'gender':data[0][6] })
+                                     'email':data[0][3], 'username':data[0][4], 'dateofbirth':data[0][5], 'gender':data[0][6],
+                                     'membersince':data[0][7] })
                 return user
             else:
                 return None
@@ -61,7 +64,8 @@ def get_user_by_username(database, username):
             data = cur.fetchall()
             if len(data) > 0:
                 user = json.dumps({'id':data[0][0],'firstname':data[0][1],'lastname':data[0][2],
-                                     'email':data[0][3], 'username':data[0][4], 'dateofbirth':data[0][5], 'gender':data[0][6] })
+                                     'email':data[0][3], 'username':data[0][4], 'dateofbirth':data[0][5], 'gender':data[0][6],
+                                     'membersince':data[0][7] })
                 return user
             else:
                 return None
@@ -84,7 +88,8 @@ def get_user_by_id(database, identification):
             data = cur.fetchall()
             if len(data) > 0:
                 user = json.dumps({'id':data[0][0],'firstname':data[0][1],'lastname':data[0][2],
-                                     'email':data[0][3], 'username':data[0][4], 'dateofbirth':data[0][5], 'gender':data[0][6] })
+                                     'email':data[0][3], 'username':data[0][4], 'dateofbirth':data[0][5], 'gender':data[0][6],
+                                     'membersince':data[0][7] })
                 return user
             else:
                 return None

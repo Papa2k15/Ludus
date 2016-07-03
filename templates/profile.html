@@ -4,117 +4,148 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ user['username']|capitalize }} Profile </title>
+    <title>Papa2k15</title>
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/fonts/ionicons.min.css">
     <link rel="stylesheet" href="../static/fonts/material-icons.css">
-    <link rel="stylesheet" href="../static/css/profile_styles.css">
-    <link href="../static/js/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <link rel="stylesheet" href="../static/css/hover.css">
+    <link rel="stylesheet" href="../static/css/pushy.css">
 </head>
 
 <body>
-    <div class="container-fluid hidden-md hidden-lg" id="ss-profile-view">
-        <div id="ss-sticky-menu"><img class="img-responsive" src="../static/img/PlayGroundLogo.png" id="ss-menu-logo"><img class="img-responsive" src="../static/img/profile.jpg" id="ss-menu-profile-picture"><i class="material-icons" id="ss-menu-icon">menu</i></div>
-        <div class="row" id="ss-backdrop">
-            <div class="col-md-12"><img class="img-responsive" src="../static/img/profile.jpg" id="ss-profile-img"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h3 class="text-center ss-round-info" id="ss-username">{{ user['username']|capitalize }} </h3></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h5 class="text-center ss-round-info">Current Playing...</h5></div>
-        </div>
-        <div class="row profile-box" id="ss-bio">
-            <div class="col-md-12">
-                <h3 class="text-center">Bio </h3></div>
-            <div class="col-md-12">
-                <p id="ss-bio-paragraph">Student attending North Carolina State University. If you ever want to play add me on Xbox or any other platform that I may have: Papa2k15. </p>
+	<nav class="pushy pushy-left">
+    <ul>
+        <!-- Submenu -->
+        <li class="pushy-submenu">
+            <a href="#">Submenu</a>
+            <ul>
+                <li class="pushy-link"><a href="#">Item 1</a></li>
+                <li class="pushy-link"><a href="#">Item 2</a></li>
+                <li class="pushy-link"><a href="#">Item 3</a></li>
+            </ul>
+        </li>
+        <li class="pushy-link"><a href="#">Item 1</a></li>
+        <li class="pushy-link"><a href="#">Item 2</a></li>
+    </ul>
+</nav>
+<div class="site-overlay"></div>
+
+    <div id="container" class="container-fluid">
+        <div id="sticky-bg"></div>
+        <div class="hidden-md hidden-lg" id="scroll-test"></div>
+        <div id="sticky-menu">
+            <div class="row">
+                <div class="col-md-1 sticky-menu-btn hvr-shadow-radial menu-btn" id="nav-btn"><i class="material-icons">menu</i></div>
+                <div class="col-md-1 col-md-offset-1"><img class="img-responsive" src="../static/img/PlayGroundLogo.png" id="menu-logo"></div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search PlayGround...">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"> <i class="icon ion-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><img src="../static/img/default-profile.png" id="menu-profile-picture"><span> Papa2k15 </span></div>
+                <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
             </div>
         </div>
-        <div class="row profile-box" id="ss-about">
-            <div class="col-md-12">
-                <h3 class="text-center">About </h3></div>
-            <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" id="profile-header"><img class="img-responsive" src="../static/img/default-profile.png" id="profile-picture">
+                <h3 class="text-center">Papa2k15 </h3>
+                <h5 class="text-center">Member Since: {{user['membersince']|date_calc}}</h5></div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-md-offset-2 menu-item" id="fed-btn"><i class="material-icons">rss_feed</i>
+                <h5>Posts </h5></div>
+            <div class="col-md-1 menu-item menu-active" id="abt-btn"><i class="material-icons">info</i>
+                <h5>About </h5></div>
+            <div class="col-md-1 menu-item" id="pht-btn"><i class="material-icons">photo</i>
+                <h5>Photos </h5></div>
+            <div class="col-md-1 menu-item" id="vds-btn"><i class="material-icons">videocam</i>
+                <h5>Videos </h5></div>
+            <div class="col-md-1 menu-item" id="awd-btn"><i class="material-icons">grade</i>
+                <h5>Awards </h5></div>
+            <div class="col-md-1 menu-item" id="sts-btn"><i class="material-icons">insert_chart</i>
+                <h5>Stats </h5></div>
+            <div class="col-md-1 menu-item" id="aty-btn"><i class="material-icons">group</i>
+                <h5>Friends </h5></div>
+            <div class="col-md-1 menu-item" id="ctm-btn"><i class="material-icons">format_paint</i>
+                <h5>Customize </h5></div>
+        </div>
+        <div class="row menu-panel active-panel" id="abt-panel">
+            <div class="col-md-2 col-md-offset-2">
                 <div>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td> <i class="material-icons">person</i></td>
-                                <td> 
-                                	<a href="#" class="editable" data-type="text" data-pk="{{user['id']}}" data-url="/post" data-title="Edit Firstname">{{ user['firstname']|capitalize }}</a> 
-                                    <a href="#" class="editable" data-type="text" data-pk="{{user['id']}}" data-url="/post" data-title="Edit Lastname">{{ user['lastname']|capitalize}}</a> 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> <i class="material-icons">cake</i></td>
-                                <td> {{user['dateofbirth']|dob_calulator}} </td>
-                            </tr>
-                            <tr>
-                                <td> <i class="material-icons">gamepad</i></td>
-                                <td>Halo 5: Guardians</td>
-                            </tr>
-                            <tr>
-                                <td> <i class="material-icons">videogame_asset</i></td>
-                                <td>Xbox One</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h4>Bio </h4>
+                    <p>{{about['biography']}} </p>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="container-fluid hidden-xs hidden-sm" id="ls-profile-view">
-        <div id="ls-sticky-menu"><img src="../static/img/PlayGroundLogo.png" id="ls-menu-logo"><img src="../static/img/profile.jpg" id="ls-menu-profile-picture"></div>
-        <div id="warpper"></div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2" id="ls-backdrop"><img class="img-responsive" src="../static/img/profile.jpg" id="ls-profile-img">
-                <div id="ls-profile-header">
-                    <h1 class="text-center">{{ user['username']|capitalize }}  </h1>
+            <div class="col-md-4">
+                <div>
+                    <h4>Personal </h4>
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table table-condensed">
                             <tbody>
                                 <tr>
-                                    <td> <i class="material-icons">person</i></td>
-                                    <td>
-	                                    <a href="#" class="editable" data-type="text" data-pk="{{user['id']}}" data-url="/post" data-title="Edit Firstname">{{ user['firstname']|capitalize }}</a> 
-	                                    <a href="#" class="editable" data-type="text" data-pk="{{user['id']}}" data-url="/post" data-title="Edit Lastname">{{ user['lastname']|capitalize}}</a> 
-                                    </td>
+                                    <td> <i class="fa fa-user"></i></td>
+                                    <td>{{user['firstname']}} {{user['lastname']}}</td>
                                 </tr>
                                 <tr>
-                                    <td> <i class="material-icons">cake</i></td>
-                                    <td> {{user['dateofbirth']|dob_calulator}}</td>
+                                    <td> <i class="fa fa-birthday-cake"></i></td>
+                                    <td>{{user['dateofbirth']|date_calc}} {{user['dateofbirth']|age_calc}}</td>
                                 </tr>
                                 <tr>
-                                    <td> <i class="material-icons">games</i></td>
-                                    <td>Halo 5: Guardians </td>
-                                </tr>
-                                <tr>
-                                    <td> <i class="material-icons">videogame_asset</i></td>
+                                    <td> <i class="fa fa-gamepad"></i></td>
                                     <td>Xbox One</td>
+                                </tr>
+                                <tr>
+                                    <td> <i class="icon ion-ios-game-controller-b-outline"></i></td>
+                                    <td>First Person</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <div>
+                    <h4>Latest Status </h4>
+                    <p>IM FEELING GOOD</p>
+                </div>
             </div>
-            <div class="col-md-8 col-md-offset-2" id="ls-bio">
-                <h4>Bio </h4>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
-                    quia voluptas sit aspernatur aut odit aut fugit, sed quia </p>
+            <div class="col-md-2">
+                <div>
+                    <h4>Gamer Tags</h4>
+                    <div class="panel-group" role="tablist" aria-multiselectable="true" id="gamer-tags">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab"><i class="icon ion-xbox"></i>
+                                <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#gamer-tags" aria-expanded="true" href="#gamer-tags .item-1">Xbox Live</a></h4></div>
+                            <div class="panel-collapse collapse in item-1" role="tabpanel">
+                                <div class="panel-body"><span>{{about['xbxgt']}}</span></div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab"><i class="icon ion-playstation"></i>
+                                <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#gamer-tags" aria-expanded="false" href="#gamer-tags .item-2">Playstation Plus</a></h4></div>
+                            <div class="panel-collapse collapse item-2" role="tabpanel">
+                                <div class="panel-body"><span>{{about['plsgt']}}</span></div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab"><i class="icon ion-steam"></i>
+                                <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#gamer-tags" aria-expanded="false" href="#gamer-tags .item-3">Steam </a></h4></div>
+                            <div class="panel-collapse collapse item-3" role="tabpanel">
+                                <div class="panel-body"><span>{{about['stmgt']}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row" id="ls-profile-more">
-            <div class="col-md-2 col-md-offset-2" id="left-col"></div>
-            <div class="col-md-5" id="feed-col"></div>
-            <div class="col-md-1" id="extra-col"></div>
         </div>
     </div>
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../static/js/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
-    <script src="../static/js/profile_script.js"></script>
+    <script src="../static/js/pushy.min.js"></script>
+    <script src="../static/js/profile-menu.js"></script>
 </body>
 
 </html>

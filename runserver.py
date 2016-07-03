@@ -15,7 +15,7 @@ from werkzeug.utils import redirect
 
 pg_app = Flask(__name__)
 pg_app.secret_key = gen_secret_key()
-ps_database = 'C:/Users/Gregory Daniels/git/Ludus/util/databases/pg.db'
+ps_database = 'C:/Users/Owner/git/Ludus/util/databases/pg.db'
 
 @pg_app.route('/')
 def index():
@@ -66,15 +66,18 @@ def user_profile(ID):
     if not session.get('cuid'):
         return redirect('/')
     current_user = json.loads(user_dao.get_user_by_id(ps_database, ID))
-    return render_template('profile.html', user=current_user)
+    current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, ID))
+    return render_template('profile.html', user=current_user, about=current_user_profile)
 
+def date_calc(dob):
+    return time.strftime('%B %d, %Y', time.localtime(int(dob))) 
 
-
-def dob_calulator(dob):
+def age_calc(dob):
     year = int(time.strftime('%B %d, %Y', time.localtime(int(dob)))[-4:])
-    return time.strftime('%B %d, %Y', time.localtime(int(dob))) + " (" + str(datetime.now().year - year) + " Years Old)" 
+    return  "(" + str(datetime.now().year - year) + " Years Old)"
 
-pg_app.jinja_env.filters['dob_calulator'] = dob_calulator
+pg_app.jinja_env.filters['date_calc'] = date_calc
+pg_app.jinja_env.filters['age_calc'] = age_calc
 
 
 if __name__ == "__main__":
