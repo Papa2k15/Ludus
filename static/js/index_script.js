@@ -15,7 +15,7 @@ $(document).ready(function(){
         showIndex++;
     }
     
-    setInterval(play,5000);
+    setInterval(play,2000);
     
     
     //Gamer Typing Code

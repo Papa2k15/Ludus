@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uh Oh...</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baumans">
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="../../static/fonts/material-icons.css">
+    <link rel="stylesheet" href="../../static/css/theme.css">
+    <link rel="stylesheet" href="../../static/css/hover.css">
+    <link rel="stylesheet" href="../../static/css/controllerparts.css">
+    <link rel="stylesheet" href="../../static/css/pushy.css">
+</head>
+
+<body>
+<nav class="pushy pushy-left">
+	<h2><img src="../../static/img/default-profile.png" class="img-responsive"/>
+	</h2>
+	<h2 class="text-center">Uh Oh...</h2>
+    <ul>
+        <!-- Submenu -->
+        <li class="pushy-submenu">
+            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Favorites</a>
+            <ul>
+                <li class="pushy-link"><a href="#">Item 1</a></li>
+                <li class="pushy-link"><a href="#">Item 2</a></li>
+                <li class="pushy-link"><a href="#">Item 3</a></li>
+            </ul>
+        </li>
+        <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-camera pushy-icon"></span>Photos</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Videos</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
+        <li class="pushy-submenu">
+            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
+            <ul>
+                <li class="pushy-link"><a href="#">Create New Group</a></li>
+                <li class="pushy-link"><a href="#">GTV Squad</a></li>
+                <li class="pushy-link"><a href="#">Item 3</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div class="site-overlay"></div>
+
+    <div id="container" class="container-fluid">
+        <div id="sticky-bg"></div>
+        <div id="sticky-menu">
+            <div class="row">
+                <div class="col-md-1 sticky-menu-btn hvr-shadow-radial menu-btn" id="nav-btn"><i class="material-icons">menu</i></div>
+                <div class="col-md-1 col-md-offset-1"><img class="img-responsive" src="../static/img/PlayGroundLogo.png" id="menu-logo"></div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search PlayGround...">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"> <i class="icon ion-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><a href="/user_profile/{{user['id']}}"><img src="../../static/img/default-profile.png" id="menu-profile-picture"><span>Papa2k15</span></a></div>
+                <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
+            </div>
+            <div id="settings-container">
+            	<ul>
+            		<li><a><i class="material-icons">format_paint</i>Customize</a></li>
+            		<li><a href="/update_profile/{{user['id']}}"><i class="material-icons">edit</i>Update Profile</a></li>
+            		<li><a><i class="material-icons">settings</i>Account Settings</a></li>
+            		<li><a href="/logout"><i class="material-icons">power</i>Log Out</a></li>
+            		<li><a><i class="material-icons">help</i>Help</a></li>
+            		<li><a><i class="material-icons">flag</i>Report an Issue</a></li>
+            	</ul>
+            </div>
+        </div>
+    	<div id="controller-container">
+    		<img id="controller" src="../../static/img/error-controller.PNG"/>
+			<span id="start-btn" class="fa fa-caret-right"></span>
+			<div id="top-btn" class="controller-btn"></div>
+			<div id="left-btn" class="controller-btn"></div>
+			<div id="right-btn" class="controller-btn"></div>
+			<div id="btm-btn" class="controller-btn"></div>
+			<div id="up-dir" class="dir-btn"></div>
+			<div id="down-dir" class="dir-btn"></div>
+			<div id="center-dir" class="dir-btn"></div>
+			<div id="left-dir" class="dir-btn"></div>
+			<div id="right-dir" class="dir-btn"></div>
+			<span id="left-rot" class="fa fa-rotate-left controller-stick"></span>
+			<span id="right-rot" class="fa fa-rotate-right controller-stick"></span>
+			<div id="sequence" class="row">
+			</div>
+			<div id="message" class="row">
+				401: Looks like you were trying to modify another user's profile...sorry no can do! Click <a href="/update_profile/{{user['id']}}">here</a> to go to the right place :)
+			</div>
+    	</div>
+    </div>
+    <script src="../../static/js/jquery.min.js"></script>
+    <script src="../../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../static/js/jQueryRotate.js"></script>
+    <script src="../../static/js/pushy.min.js"></script>
+    <script src="../../static/js/global_scripts/sticky_menu.js"></script>
+    <script src="../../static/js/error_script/error_script.js"></script>
+</body>
+
+</html>

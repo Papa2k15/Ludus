@@ -1,0 +1,124 @@
+@CHARSET "ISO-8859-1";
+
+#controller-container{
+	background-color: rgba(41,44,47,0.4);
+	height: inherit;
+}
+
+#controller{
+	display: block;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#start-btn{
+	position: absolute;
+	color: white;
+	width: 0; 
+  	height: 0; 
+  	font-size: 90px;
+	left: calc(50% - 30px);
+    top: 186px;
+}
+
+.dir-btn{
+	background-color: white;
+	position: absolute;
+	border-radius:5px;
+	width: 35px;
+	height: 35px;
+	z-index: 100;
+}
+
+#up-dir{
+	top:150px;
+	left: calc(50% - 160px);
+}
+
+#left-dir{
+	top:185px;
+	left: calc(50% - 195px);
+}
+
+#right-dir{
+	top:185px;
+	left: calc(50% - 125px);
+}
+
+#center-dir{
+	top:185px;
+	left: calc(50% - 160px);
+}
+
+#down-dir{
+	top:220px;
+	left: calc(50% - 160px);
+}
+
+.controller-btn{
+	border-radius:50%;
+	background-color: white;
+	position: absolute;
+	width: 35px;
+	height: 35px;
+	z-index: 100;
+}
+
+#top-btn{
+	top: 150px;
+    left: calc(50% + 100px)
+}
+
+#left-btn{
+	top: 190px;
+    left: calc(50% + 60px);
+}
+
+#btm-btn{
+	top: 230px;
+    left: calc(50% + 100px)
+}
+
+#right-btn{
+	top: 190px;
+    left: calc(50% + 140px);
+}
+
+.controller-stick{
+	color: white;
+	font-size: 90px;
+	position: absolute;
+}
+
+#left-rot{
+	top: 290px;
+    left: calc(50% + 40px);
+}
+
+#right-rot{
+	top: 290px;
+    left: calc(50% - 140px);
+}
+
+#sequence{
+	text-align: center;
+	color: white;
+	width: 100%;
+	font-size: 40px;
+	position: absolute;
+	top: calc(75% + 50px);
+}
+
+#sequence > span {
+	margin-right: 20px;
+}
+
+#message {
+	position: absolute;
+	top: calc(75% + 120px);
+	width: 100%;
+	text-align: center;
+	font-size: 25px;
+	color: white;
+}

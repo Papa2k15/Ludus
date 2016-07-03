@@ -3,7 +3,7 @@ from flask.templating import render_template
 from flask.globals import request, session
 from util.database_gen import delete_all_tables, build_all_tables
 import cgi
-from flask.helpers import make_response
+from flask.helpers import make_response, url_for
 import time
 from db import user_dao, security_dao, user_profile_dao
 from util.app_constants import pg_responses, MONTHS
@@ -12,6 +12,7 @@ import hashlib
 from datetime import datetime
 from util.app_config import gen_secret_key
 from werkzeug.utils import redirect
+from werkzeug.exceptions import abort
 
 pg_app = Flask(__name__)
 pg_app.secret_key = gen_secret_key()
@@ -60,6 +61,11 @@ def pg_register():
         return make_response(json.dumps(pg_responses.REG_SUCCES),200)
     return make_response(json.dumps(pg_responses.REG_FAILED),200)
 
+@pg_app.route('/logout', methods=["GET"])
+def pg_logout():
+    session['cuid'] = None
+    return redirect(url_for('index'))
+
 #Views
 @pg_app.route('/user_profile/<ID>')
 def user_profile(ID):
@@ -68,6 +74,26 @@ def user_profile(ID):
     current_user = json.loads(user_dao.get_user_by_id(ps_database, ID))
     current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, ID))
     return render_template('profile.html', user=current_user, about=current_user_profile)
+
+@pg_app.route('/update_profile/<ID>')
+def update_profile(ID):
+    print session.get('cuid')
+    print ID
+    if not session.get('cuid'):
+        return redirect('/')
+    if session.get('cuid') != ID:
+        print 'abort'
+        abort(401) 
+    current_user = json.loads(user_dao.get_user_by_id(ps_database, ID))
+    current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, ID))
+    return render_template('update_profile.html', user=current_user, about=current_user_profile,
+                           months = MONTHS)
+
+#Error Pages
+@pg_app.errorhandler(401)
+def unauthorized_access(e):
+    current_user = json.loads(user_dao.get_user_by_id(ps_database,  session.get('cuid')))
+    return render_template('error_pages/401.html',user=current_user), 401
 
 def date_calc(dob):
     return time.strftime('%B %d, %Y', time.localtime(int(dob))) 

@@ -7,9 +7,10 @@
   position: fixed;
   width: 200px;
   height: 100%;
+  color: white;
   top: 0;
   z-index: 9999;
-  background: #191918;
+  background: linear-gradient(-127deg, rgba(41,44,47,1), #000);
   overflow: auto;
   visibility: hidden;
   -webkit-overflow-scrolling: touch;
@@ -17,14 +18,22 @@
 }
 .pushy a {
   display: block;
-  color: #b3b3b1;
-  padding: 15px 30px;
+  color: white;
+  padding: 10px 20px;
   text-decoration: none;
   outline: 0;
+  margin-right: 20px;
 }
 .pushy a:hover {
-  color: #FFF;
+  border-radius: 10px;
+  background-color: rgba(255,255,255,0.5);
 }
+
+.pushy > ul {
+	list-style: none;	
+	padding-left: 15px;
+}
+
 .pushy ul:first-child {
   margin-top: 10px;
 }
@@ -33,6 +42,10 @@
 }
 .pushy.pushy-right {
   right: 0;
+}
+
+.pushy-icon{
+	margin-right: 10px;
 }
 
 /* Menu Movement */

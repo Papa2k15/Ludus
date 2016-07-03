@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user['username']|capitalize}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baumans">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="../static/fonts/material-icons.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <link rel="stylesheet" href="../static/css/hover.css">
+    <link rel="stylesheet" href="../static/css/pushy.css">
+</head>
+
+<body>
+<nav class="pushy pushy-left">
+	<h2><img src="../static/img/default-profile.png" class="img-responsive"/>
+	</h2>
+	<h2 class="text-center">{{user['username']|capitalize}}</h2>
+    <ul>
+        <!-- Submenu -->
+        <li class="pushy-submenu">
+            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Favorites</a>
+            <ul>
+                <li class="pushy-link"><a href="#">Item 1</a></li>
+                <li class="pushy-link"><a href="#">Item 2</a></li>
+                <li class="pushy-link"><a href="#">Item 3</a></li>
+            </ul>
+        </li>
+        <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-camera pushy-icon"></span>Photos</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Videos</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
+        <li class="pushy-submenu">
+            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
+            <ul>
+                <li class="pushy-link"><a href="#">Create New Group</a></li>
+                <li class="pushy-link"><a href="#">GTV Squad</a></li>
+                <li class="pushy-link"><a href="#">Item 3</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div class="site-overlay"></div>
+
+    <div id="container" class="container-fluid">
+        <div id="sticky-bg"></div>
+        <div id="sticky-menu">
+            <div class="row">
+                <div class="col-md-1 sticky-menu-btn hvr-shadow-radial menu-btn" id="nav-btn"><i class="material-icons">menu</i></div>
+                <div class="col-md-1 col-md-offset-1"><img class="img-responsive" src="../static/img/PlayGroundLogo.png" id="menu-logo"></div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search PlayGround...">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"> <i class="icon ion-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><a href="/user_profile/{{user['id']}}"><img src="../static/img/default-profile.png" id="menu-profile-picture"><span>Papa2k15</span></a></div>
+                <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
+            </div>
+            <div id="settings-container">
+            	<ul>
+            		<li><a><i class="material-icons">format_paint</i>Customize</a></li>
+            		<li><a href="/update_profile/{{user['id']}}"><i class="material-icons">edit</i>Update Profile</a></li>
+            		<li><a><i class="material-icons">settings</i>Account Settings</a></li>
+            		<li><a href="/logout"><i class="material-icons">power</i>Log Out</a></li>
+            		<li><a><i class="material-icons">help</i>Help</a></li>
+            		<li><a><i class="material-icons">flag</i>Report an Issue</a></li>
+            	</ul>
+            </div>
+        </div>
+        <!-- CONTENT -->
+        <div id="content" class="row">
+        	<div class="col-md-8 col-md-offset-2">        	
+        	<ul class="nav nav-tabs">
+			  <li class="active"><a data-toggle="tab" href="#home">General Information</a></li>
+			  <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+			  <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+			</ul>
+			
+			<div class="tab-content">
+			  <div id="home" class="tab-pane fade in active">
+			    <h3>General Information</h3>
+			    <form>
+			    	<div class="row">
+			    		<div class="col-md-4">
+			    			<label>First Name</label>
+			    			<input type="text" class="form-control" value="{{user['firstname']}}"/>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<label>Last Name</label>
+			    			<input type="text" class="form-control" value="{{user['lastname']}}"/>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<label>Username</label>
+			    			<input type="text" class="form-control"/>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-6">
+			    			<label>Email</label>
+			    			<input type="email" class="form-control"/>
+			    		</div>
+			    		<div class="col-md-2">
+			    			<label>Birthday</label>
+			    			<select class="form-control">
+                                    <option value="-1">Month</option>
+                                    {% for x in range(0,12) %}
+                                    	<option value="{{months[0][x]}}">{{months[1][x]}}</option>
+                                    {% endfor %}
+                             </select>
+			    		</div>
+			    		<div class="col-md-2">
+			    			<label class="inv">Birth Day</label>
+							<select class="form-control">
+                                    <option value="-1">Day</option>
+                             </select>
+			    		</div>
+			    		<div class="col-md-2">
+			    			<label class="inv">Birth Year</label>
+			    			<select class="form-control">
+                                <option value="-1">Year</option>
+                            </select>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-4">
+			    			<label>Biography</label>
+			    			<textarea rows="4" maxlength="250"
+			    			class="form-control">{{about['biography']}}</textarea>
+			    		</div>
+			    	</div>
+			    </form>
+			  </div>
+			  <div id="menu1" class="tab-pane fade">
+			    <h3>Menu 1</h3>
+			    <p>Some content in menu 1.</p>
+			  </div>
+			  <div id="menu2" class="tab-pane fade">
+			    <h3>Menu 2</h3>
+			    <p>Some content in menu 2.</p>
+			  </div>
+			</div>
+        	</div>
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/pushy.min.js"></script>
+    <script src="../static/js/profile_scripts/profile-menu.js"></script>
+    <script src="../static/js/global_scripts/sticky_menu.js"></script>
+</body>
+
+</html>

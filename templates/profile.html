@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papa2k15</title>
+    <title>{{user['username']|capitalize}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baumans">
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="../static/fonts/ionicons.min.css">
@@ -15,26 +16,40 @@
 </head>
 
 <body>
-	<nav class="pushy pushy-left">
+<nav class="pushy pushy-left">
+	<h2><img src="../static/img/default-profile.png" class="img-responsive"/>
+	</h2>
+	<h2 class="text-center">{{user['username']|capitalize}}</h2>
     <ul>
         <!-- Submenu -->
         <li class="pushy-submenu">
-            <a href="#">Submenu</a>
+            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Favorites</a>
             <ul>
                 <li class="pushy-link"><a href="#">Item 1</a></li>
                 <li class="pushy-link"><a href="#">Item 2</a></li>
                 <li class="pushy-link"><a href="#">Item 3</a></li>
             </ul>
         </li>
-        <li class="pushy-link"><a href="#">Item 1</a></li>
-        <li class="pushy-link"><a href="#">Item 2</a></li>
+        <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-camera pushy-icon"></span>Photos</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Videos</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
+        <li class="pushy-submenu">
+            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
+            <ul>
+                <li class="pushy-link"><a href="#">Create New Group</a></li>
+                <li class="pushy-link"><a href="#">GTV Squad</a></li>
+                <li class="pushy-link"><a href="#">Item 3</a></li>
+            </ul>
+        </li>
     </ul>
 </nav>
 <div class="site-overlay"></div>
 
     <div id="container" class="container-fluid">
         <div id="sticky-bg"></div>
-        <div class="hidden-md hidden-lg" id="scroll-test"></div>
         <div id="sticky-menu">
             <div class="row">
                 <div class="col-md-1 sticky-menu-btn hvr-shadow-radial menu-btn" id="nav-btn"><i class="material-icons">menu</i></div>
@@ -47,13 +62,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><img src="../static/img/default-profile.png" id="menu-profile-picture"><span> Papa2k15 </span></div>
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><a href="/user_profile/{{user['id']}}"><img src="../static/img/default-profile.png" id="menu-profile-picture"><span>Papa2k15</span></a></div>
                 <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
+            </div>
+            <div id="settings-container">
+            	<ul>
+            		<li><a><i class="material-icons">format_paint</i>Customize</a></li>
+            		<li><a href="/update_profile/{{user['id']}}"><i class="material-icons">edit</i>Update Profile</a></li>
+            		<li><a><i class="material-icons">settings</i>Account Settings</a></li>
+            		<li><a href="/logout"><i class="material-icons">power</i>Log Out</a></li>
+            		<li><a><i class="material-icons">help</i>Help</a></li>
+            		<li><a><i class="material-icons">flag</i>Report an Issue</a></li>
+            	</ul>
             </div>
         </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2" id="profile-header"><img class="img-responsive" src="../static/img/default-profile.png" id="profile-picture">
-                <h3 class="text-center">Papa2k15 </h3>
+                <h3 class="text-center">{{user['username']|capitalize}}</h3>
                 <h5 class="text-center">Member Since: {{user['membersince']|date_calc}}</h5></div>
         </div>
         <div class="row">
@@ -69,11 +94,13 @@
                 <h5>Awards </h5></div>
             <div class="col-md-1 menu-item" id="sts-btn"><i class="material-icons">insert_chart</i>
                 <h5>Stats </h5></div>
-            <div class="col-md-1 menu-item" id="aty-btn"><i class="material-icons">group</i>
+            <div class="col-md-1 menu-item" id="frd-btn"><i class="material-icons">group</i>
                 <h5>Friends </h5></div>
             <div class="col-md-1 menu-item" id="ctm-btn"><i class="material-icons">format_paint</i>
                 <h5>Customize </h5></div>
         </div>
+        <div class="row menu-panel" id="fed-panel">
+    	</div>
         <div class="row menu-panel active-panel" id="abt-panel">
             <div class="col-md-2 col-md-offset-2">
                 <div>
@@ -141,11 +168,22 @@
                 </div>
             </div>
         </div>
+   		<div class="row menu-panel" id="pht-panel">
+    	</div> 
+    	<div class="row menu-panel" id="vds-panel">
+    	</div>
+    	<div class="row menu-panel" id="awd-panel">
+    	</div>
+    	<div class="row menu-panel" id="sts-panel">
+    	</div>
+    	<div class="row menu-panel" id="frd-panel">
+    	</div>	
     </div>
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
     <script src="../static/js/pushy.min.js"></script>
-    <script src="../static/js/profile-menu.js"></script>
+    <script src="../static/js/profile_scripts/profile-menu.js"></script>
+    <script src="../static/js/global_scripts/sticky_menu.js"></script>
 </body>
 
 </html>

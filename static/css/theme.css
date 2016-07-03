@@ -1,5 +1,6 @@
 html, body{
     overflow-x: hidden;
+    font-family: "Baumans";
     height: 100%;
     -webkit-overflow-scrolling: touch;
 }
@@ -105,10 +106,15 @@ div#gamer-tags.panel-group{
 
 img#menu-profile-picture{
   max-width:40px;
+  margin-right: 10px;
   border-radius:50%;
 }
 
-div#profile-btn:HOVER{
+#profile-btn > a {
+	color:rgb(41,44,47);
+}
+
+#profile-btn:HOVER{
   cursor:pointer;
   text-decoration:underline;
 }
@@ -125,3 +131,52 @@ div#profile-btn:HOVER{
   font-size:40px;
 }
 
+#settings-container {
+	position: fixed;
+	right: 20px;
+	top: 60px;
+	background-color: rgb(41,44,47);
+	width: 220px;
+	height: 300px;
+	z-index: 2;
+}
+
+#settings-container > ul {
+	list-style: none;
+	padding-top: 20px;
+	padding-left: 20px;
+	font-size: 20px;
+}
+
+#settings-container > ul > li {
+	margin-bottom: 15px;
+}
+
+#settings-container > ul > li > a {
+	color: white;
+	padding: 10px;
+	vertical-align: top;
+}
+
+#settings-container > ul > li > a:HOVER {
+	cursor: pointer;
+	text-decoration: none;
+	background-color: rgba(255,255,255,0.5);
+	border-radius: 10px;
+}
+
+#settings-container > ul > li > a > i {
+	margin-right: 3px;
+}
+
+#content{
+	margin-top: 65px;
+}
+
+textarea {
+	resize:none;
+}
+
+.inv {
+	visibility: hidden;
+}

@@ -5,10 +5,11 @@ $(document).ready(function(){
     }
     
     $('.menu-item').click(function(){
-        if(!$(this).hasClass('menu-active')){
+    	var menu = $(this).attr('id').substring(0,3);
+        if(!$(this).hasClass('menu-active') && menu != 'ctm'){
             hideProfilePanels();
             $('.menu-item').removeClass('menu-active');
-            $('#'+$(this).attr('id').substring(0,3)+'-panel').fadeIn(); 
+            $('#'+menu+'-panel').fadeIn(); 
             $(this).addClass('menu-active');
         }
     });
