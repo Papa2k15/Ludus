@@ -77,17 +77,14 @@ def user_profile(ID):
 
 @pg_app.route('/update_profile/<ID>')
 def update_profile(ID):
-    print session.get('cuid')
-    print ID
     if not session.get('cuid'):
         return redirect('/')
     if session.get('cuid') != ID:
-        print 'abort'
         abort(401) 
     current_user = json.loads(user_dao.get_user_by_id(ps_database, ID))
     current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, ID))
-    return render_template('update_profile.html', user=current_user, about=current_user_profile,
-                           months = MONTHS)
+    print date_calc(current_user['dateofbirth'])
+    return render_template('update_profile.html', user=current_user, about=current_user_profile,dob=iso_date_string(current_user['dateofbirth']))
 
 #Error Pages
 @pg_app.errorhandler(401)
@@ -101,6 +98,12 @@ def date_calc(dob):
 def age_calc(dob):
     year = int(time.strftime('%B %d, %Y', time.localtime(int(dob)))[-4:])
     return  "(" + str(datetime.now().year - year) + " Years Old)"
+
+def iso_date_string(date):
+    return time.strftime("%Y %m %d",time.localtime(int(date)))
+
+def get_date_tuple(date):
+    return time.strptime(date_calc(date), "%B %d, %Y") 
 
 pg_app.jinja_env.filters['date_calc'] = date_calc
 pg_app.jinja_env.filters['age_calc'] = age_calc

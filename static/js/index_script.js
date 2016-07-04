@@ -29,7 +29,6 @@ $(document).ready(function(){
       });
     
     //Form Code
-    
     $('#ss-month-select,#ls-month-select').change(function(){
     	var monthVal = $(this).val();
     	if(monthVal != "-1"){

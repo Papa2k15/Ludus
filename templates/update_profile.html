@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="../static/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="../static/js/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="../static/fonts/material-icons.css">
     <link rel="stylesheet" href="../static/css/theme.css">
     <link rel="stylesheet" href="../static/css/hover.css">
@@ -88,53 +89,95 @@
 			<div class="tab-content">
 			  <div id="home" class="tab-pane fade in active">
 			    <h3>General Information</h3>
-			    <form>
+			    <form id="profile-form">
 			    	<div class="row">
-			    		<div class="col-md-4">
+			    		<div class="col-md-4 form-group">
 			    			<label>First Name</label>
-			    			<input type="text" class="form-control" value="{{user['firstname']}}"/>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+			    				<input type="text" class="form-control" 
+			    				data-validation="required"
+			    				value="{{user['firstname']}}"/>
+			    			</div>
 			    		</div>
-			    		<div class="col-md-4">
+			    		<div class="col-md-4 form-group">
 			    			<label>Last Name</label>
-			    			<input type="text" class="form-control" value="{{user['lastname']}}"/>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+			    				<input type="text" class="form-control" 
+			    				data-validation="required"
+			    				value="{{user['lastname']}}"/>
+			    			</div>
 			    		</div>
-			    		<div class="col-md-4">
+			    		<div class="col-md-4 form-group">
 			    			<label>Username</label>
-			    			<input type="text" class="form-control"/>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span>@</span></div>
+			    				<input type="text" class="form-control" 
+			    				data-validation="required"
+			    				value="{{user['email']}}"/>
+			    			</div>
 			    		</div>
 			    	</div>
 			    	<div class="row">
-			    		<div class="col-md-6">
+			    		<div class="col-md-6 form-group">
 			    			<label>Email</label>
-			    			<input type="email" class="form-control"/>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+			    				<input type="email" class="form-control" 
+			    				data-validation="required"
+			    				value="{{user['email']}}"/>
+			    			</div>
 			    		</div>
-			    		<div class="col-md-2">
+			    		<div class="col-md-3 form-group">
 			    			<label>Birthday</label>
-			    			<select class="form-control">
-                                    <option value="-1">Month</option>
-                                    {% for x in range(0,12) %}
-                                    	<option value="{{months[0][x]}}">{{months[1][x]}}</option>
-                                    {% endfor %}
-                             </select>
+			    			<div class="input-group" id="birthdayselect">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+			    				<input value="{{user['dateofbirth']|date_calc}}" 
+			    				data-validation="required"
+			    				class="form-control"/>
+			    			</div>
 			    		</div>
-			    		<div class="col-md-2">
-			    			<label class="inv">Birth Day</label>
-							<select class="form-control">
-                                    <option value="-1">Day</option>
-                             </select>
-			    		</div>
-			    		<div class="col-md-2">
-			    			<label class="inv">Birth Year</label>
-			    			<select class="form-control">
-                                <option value="-1">Year</option>
-                            </select>
+			    		<div class="col-md-3 form-group">
+			    			<label>Gender</label>
+			    			<select id="gender-select" 
+			    			class="form-control">
+			    				<option value="male">Male</option>
+			    				<option value="female">Female</option>
+			    			</select>
 			    		</div>
 			    	</div>
 			    	<div class="row">
-			    		<div class="col-md-4">
-			    			<label>Biography</label>
-			    			<textarea rows="4" maxlength="250"
-			    			class="form-control">{{about['biography']}}</textarea>
+			    		<div class="col-md-12 form-group">
+			    			<label>Biography <span id="maxlength" class="badge">300</span> characters left</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+			    				<textarea id="bio" rows="3" maxlength="300"
+			    				class="form-control">{{about['biography']}}</textarea>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-6 form-group">
+			    			<label>Profile Photo</label>
+			    			<input type="file" 
+			    			 data-validation="mime size" 
+							 data-validation-allowing="jpg, png, gif" 
+							 data-validation-max-size="2M"
+			    			class='form-control'/>
+			    		</div>
+			    		<div class="col-md-6 form-group">
+			    			<label>Background Photo</label>
+			    			<input type="file" 
+			    			 data-validation="mime size" 
+							 data-validation-allowing="jpg, png, gif" 
+							 data-validation-max-size="2M"
+			    			class="form-control"/>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-12">
+			    			<input type="submit" value="Update General Information" class="form-control"/>
 			    		</div>
 			    	</div>
 			    </form>
@@ -153,10 +196,37 @@
         <!-- END CONTENT -->
     </div>
     <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/moment-with-locales.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/form-validator/jquery.form-validator.min.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
     <script src="../static/js/pushy.min.js"></script>
-    <script src="../static/js/profile_scripts/profile-menu.js"></script>
     <script src="../static/js/global_scripts/sticky_menu.js"></script>
+    <script>
+	$(document).ready(function(){
+		var currentbday = moment('{{dob}}').format("MMMM DD, YYYY");
+
+		$('#birthdayselect').datetimepicker({
+			format: "MMMM DD, YYYY",
+			useCurrent:false,
+			defaultDate: currentbday,
+			maxDate: moment([moment().year(), 11, 31]).subtract(13, 'years')
+		});
+		
+		$('#gender-select').val('{{user["gender"]}}');
+		
+		$.validate({
+	    	  form : 'form',
+	    	  modules : 'file toggleDisabled',
+	    	  disabledFormFilter : 'form'
+	    });
+		
+		  $('#bio').restrictLength($('#maxlength'));
+		  
+		  $("#profile-form").isValid()
+
+	});
+    </script>
 </body>
 
 </html>
