@@ -18,9 +18,17 @@
 
 <body>
 <nav class="pushy pushy-left">
-	<h2><img src="../../static/img/default-profile.png" class="img-responsive"/>
+	<h2>
+
+	{% if 'default-profile.png' == about['profilephoto'] %}
+       	<img src="../static/img/{{about['profilephoto']|safe}}" class="img-responsive"/>
+	{% else %}
+        <img src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}" class="img-responsive"/>
+	{% endif %}	
+	
+
 	</h2>
-	<h2 class="text-center">Uh Oh...</h2>
+	<h2 class="text-center">{{user['username']|capitalize}}</h2>
     <ul>
         <!-- Submenu -->
         <li class="pushy-submenu">
@@ -63,7 +71,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><a href="/user_profile/{{user['id']}}"><img src="../../static/img/default-profile.png" id="menu-profile-picture"><span>Papa2k15</span></a></div>
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn">
+					 {% if 'default-profile.png' == about['profilephoto'] %}
+  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
+    			{% else %}
+  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
+    			{% endif %}
+                </div>
                 <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
             </div>
             <div id="settings-container">

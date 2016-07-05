@@ -26,6 +26,8 @@ class pg_responses(object):
     USERNAME_IN_USE = {'code':'pg_5','description':"Username is already in use."}
     LOGIN_SUC = {'code':'pg_6','description':"Login successful, redirecting..."}
     UNK_ERROR  = {'code':'pg_error','description':"Something went wrong, please try again."}
+    UPDT_SUCCES  = {'code':'pg_7','description':"Profile has been updated successfully."}
+    UPDT_ERROR  = {'code':'pg_8','description':"There was an issue updating your profile, please try again."}
 
 class logging_events(object):
     #USER EVENT

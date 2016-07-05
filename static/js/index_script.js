@@ -133,7 +133,7 @@ $(document).ready(function(){
      			document.getElementById("ls-login-form").reset();
      			window.setTimeout(function () {
      		        location.href = '/user_profile/' + response['id'];;
-     		    }, 5000);
+     		    }, 500);
     		}
     		 Custombox.open({
 	              target: '#error-box',

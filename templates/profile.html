@@ -16,38 +16,45 @@
 </head>
 
 <body>
-<nav class="pushy pushy-left">
-	<h2><img src="../static/img/default-profile.png" class="img-responsive"/>
-	</h2>
-	<h2 class="text-center">{{user['username']|capitalize}}</h2>
-    <ul>
-        <!-- Submenu -->
-        <li class="pushy-submenu">
-            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Favorites</a>
-            <ul>
-                <li class="pushy-link"><a href="#">Item 1</a></li>
-                <li class="pushy-link"><a href="#">Item 2</a></li>
-                <li class="pushy-link"><a href="#">Item 3</a></li>
-            </ul>
-        </li>
-        <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
-        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
-        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
-        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-camera pushy-icon"></span>Photos</a></li>
-        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Videos</a></li>
-        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
-        <li class="pushy-submenu">
-            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
-            <ul>
-                <li class="pushy-link"><a href="#">Create New Group</a></li>
-                <li class="pushy-link"><a href="#">GTV Squad</a></li>
-                <li class="pushy-link"><a href="#">Item 3</a></li>
-            </ul>
-        </li>
-    </ul>
-</nav>
-<div class="site-overlay"></div>
-
+	<!-- MENU START -->
+	<nav class="pushy pushy-left">
+		<h2>
+	
+		{% if 'default-profile.png' == about['profilephoto'] %}
+	       	<img src="../static/img/{{about['profilephoto']|safe}}" class="img-responsive"/>
+		{% else %}
+	        <img src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}" class="img-responsive"/>
+		{% endif %}	
+	
+		</h2>
+		<h2 class="text-center">{{user['username']|capitalize}}</h2>
+	    <ul>
+	        <!-- Submenu -->
+	        <li class="pushy-submenu">
+	            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Favorites</a>
+	            <ul>
+	                <li class="pushy-link"><a href="#">Item 1</a></li>
+	                <li class="pushy-link"><a href="#">Item 2</a></li>
+	                <li class="pushy-link"><a href="#">Item 3</a></li>
+	            </ul>
+	        </li>
+	        <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-camera pushy-icon"></span>Photos</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Videos</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
+	        <li class="pushy-submenu">
+	            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
+	            <ul>
+	                <li class="pushy-link"><a href="#">Create New Group</a></li>
+	                <li class="pushy-link"><a href="#">GTV Squad</a></li>
+	                <li class="pushy-link"><a href="#">Item 3</a></li>
+	            </ul>
+	        </li>
+	    </ul>
+	</nav>
+	<div class="site-overlay"></div>
     <div id="container" class="container-fluid">
         <div id="sticky-bg"></div>
         <div id="sticky-menu">
@@ -62,7 +69,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><a href="/user_profile/{{user['id']}}"><img src="../static/img/default-profile.png" id="menu-profile-picture"><span>Papa2k15</span></a></div>
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><a href="/user_profile/{{user['id']}}">
+                {% if 'default-profile.png' == about['profilephoto'] %}
+  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
+    			{% else %}
+  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
+    			{% endif %}
+                </div>
                 <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
             </div>
             <div id="settings-container">
@@ -76,8 +89,16 @@
             	</ul>
             </div>
         </div>
+	<!-- MENU END -->
+	<!-- CONTENT START -->
         <div class="row">
-            <div class="col-md-8 col-md-offset-2" id="profile-header"><img class="img-responsive" src="../static/img/default-profile.png" id="profile-picture">
+            <div class="col-md-8 col-md-offset-2" id="profile-header">
+            {% if 'default-profile.png' == about['profilephoto'] %}
+	        	<img id="profile-picture" src="../static/img/{{about['profilephoto']|safe}}" class="img-responsive"/>
+			{% else %}
+	        	<img id="profile-picture" src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}" class="img-responsive"/>
+			{% endif %}
+            
                 <h3 class="text-center">{{user['username']|capitalize}}</h3>
                 <h5 class="text-center">Member Since: {{user['membersince']|date_calc}}</h5></div>
         </div>
@@ -86,10 +107,10 @@
                 <h5>Posts </h5></div>
             <div class="col-md-1 menu-item menu-active" id="abt-btn"><i class="material-icons">info</i>
                 <h5>About </h5></div>
-            <div class="col-md-1 menu-item" id="pht-btn"><i class="material-icons">photo</i>
-                <h5>Photos </h5></div>
-            <div class="col-md-1 menu-item" id="vds-btn"><i class="material-icons">videocam</i>
-                <h5>Videos </h5></div>
+            <div class="col-md-1 menu-item" id="gme-btn"><i class="material-icons">gamepad</i>
+                <h5>Games </h5></div>
+            <div class="col-md-1 menu-item" id="mda-btn"><i class="material-icons">perm_media</i>
+                <h5>Media </h5></div>
             <div class="col-md-1 menu-item" id="awd-btn"><i class="material-icons">grade</i>
                 <h5>Awards </h5></div>
             <div class="col-md-1 menu-item" id="sts-btn"><i class="material-icons">insert_chart</i>
@@ -116,7 +137,7 @@
                             <tbody>
                                 <tr>
                                     <td> <i class="fa fa-user"></i></td>
-                                    <td>{{user['firstname']}} {{user['lastname']}}</td>
+                                    <td>{{user['firstname']|capitalize}} {{user['lastname']|capitalize}}</td>
                                 </tr>
                                 <tr>
                                     <td> <i class="fa fa-birthday-cake"></i></td>
@@ -147,30 +168,30 @@
                             <div class="panel-heading" role="tab"><i class="icon ion-xbox"></i>
                                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#gamer-tags" aria-expanded="true" href="#gamer-tags .item-1">Xbox Live</a></h4></div>
                             <div class="panel-collapse collapse in item-1" role="tabpanel">
-                                <div class="panel-body"><span>{{about['xbxgt']}}</span></div>
+                                <div class="panel-body"><span>{{about['xbxgt']|capitalize}}</span></div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab"><i class="icon ion-playstation"></i>
                                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#gamer-tags" aria-expanded="false" href="#gamer-tags .item-2">Playstation Plus</a></h4></div>
                             <div class="panel-collapse collapse item-2" role="tabpanel">
-                                <div class="panel-body"><span>{{about['plsgt']}}</span></div>
+                                <div class="panel-body"><span>{{about['plsgt']|capitalize}}</span></div>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab"><i class="icon ion-steam"></i>
                                 <h4 class="panel-title"><a role="button" data-toggle="collapse" data-parent="#gamer-tags" aria-expanded="false" href="#gamer-tags .item-3">Steam </a></h4></div>
                             <div class="panel-collapse collapse item-3" role="tabpanel">
-                                <div class="panel-body"><span>{{about['stmgt']}}</span></div>
+                                <div class="panel-body"><span>{{about['stmgt']|capitalize}}</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-   		<div class="row menu-panel" id="pht-panel">
+   		<div class="row menu-panel" id="gme-panel">
     	</div> 
-    	<div class="row menu-panel" id="vds-panel">
+    	<div class="row menu-panel" id="mda-panel">
     	</div>
     	<div class="row menu-panel" id="awd-panel">
     	</div>
@@ -179,11 +200,17 @@
     	<div class="row menu-panel" id="frd-panel">
     	</div>	
     </div>
+	<!-- CONTENT END -->
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
     <script src="../static/js/pushy.min.js"></script>
     <script src="../static/js/profile_scripts/profile-menu.js"></script>
     <script src="../static/js/global_scripts/sticky_menu.js"></script>
+    <script>
+    $(document).ready(function(){
+    	$('#profile-header').css('background-image','url(../../static/img/{{about["coverphoto"]|safe}})');
+    });
+    </script>
 </body>
 
 </html>

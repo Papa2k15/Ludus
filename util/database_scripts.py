@@ -22,12 +22,13 @@ user_profile_table_script = """
     CREATE TABLE "userprofile" (
     'ID'                TEXT PRIMARY KEY,
     `biography`         TEXT DEFAULT '',
-    `profilephoto`      TEXT DEFAULT '',
+    `profilephoto`      TEXT DEFAULT 'default-profile.png',
     `consoles`          TEXT DEFAULT '',
     `genres`            TEXT DEFAULT '',
     `xbxgt`             TEXT DEFAULT '',
     `plsgt`             TEXT DEFAULT '',
-    `stmgt`             TEXT DEFAULT ''
+    `stmgt`             TEXT DEFAULT '',
+    `coverphoto`        TEXT DEFAULT 'default-bg.png'
     );
     """
 

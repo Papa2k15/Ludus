@@ -59,7 +59,9 @@
                             <div class="col-md-12">
                                 <input class="form-control input-sm pg-input" 
                                 name="username"
-                                id="ls-username" maxlength="30" data-validation="required"
+                                id="ls-username" maxlength="16"
+                                data-validation="required alphanumeric"
+                                data-validation-allowing="-_"
                                 type="text" placeholder="Username">
                             </div>
                         </div>
@@ -221,7 +223,7 @@
                                                 <div class="input-group-addon pg-group-addon"><span>@</span></div>
                                                 <input class="form-control pg-input" 
                                                 id="ss-username"
-                                                name="username" maxlength="30" 
+                                                name="username" maxlength="16" 
                                                 data-validation="required alphanumeric"
                                                 data-validation-allowing="-_"
                                                 type="text" placeholder="Username">
