@@ -118,7 +118,9 @@ def update_user_profile(ID):
         abort(401) 
     current_user = json.loads(user_dao.get_user_by_id(ps_database, ID))
     current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, ID))
-    return render_template('update_profile.html', user=current_user, about=current_user_profile,dob=iso_date_string(current_user['dateofbirth']))
+    current_user_security = json.loads(security_dao.get_security(ps_database, ID))
+    return render_template('update_profile.html', user=current_user, about=current_user_profile,
+                           security=current_user_security, dob=iso_date_string(current_user['dateofbirth']))
 
 #Actions
 @pg_app.route('/update_user/<ID>', methods=["POST"])
@@ -161,7 +163,14 @@ def update_profile(ID):
         return make_response(json.dumps(pg_responses.UPDT_SUCCES),200)
     return make_response(json.dumps(pg_responses.UPDT_ERROR),200)
     
-    return redirect(url_for('update_user_profile',ID=session.get('cuid')))
+@pg_app.route('/update_security/<ID>', methods=["POST"])
+def update_security(ID):
+    password = cgi.escape(request.form['password'].lower())
+    fetch_sec = json.loads(security_dao.get_security(ps_database, ID))
+    fetch_sec['password'] = password
+    if security_dao.update_security(ps_database, fetch_sec, True) is True:
+        return make_response(json.dumps(pg_responses.UPDT_SUCCES),200)
+    return make_response(json.dumps(pg_responses.UPDT_ERROR),200)
 
 #Error Pages
 @pg_app.errorhandler(401)
@@ -188,8 +197,6 @@ pg_app.jinja_env.filters['age_calc'] = age_calc
 
 
 if __name__ == "__main__":
-    print 'deleting tables'
     delete_all_tables(ps_database)
-    print 'building tables'
     build_all_tables(ps_database)       
     pg_app.run(host='0.0.0.0', debug=True)

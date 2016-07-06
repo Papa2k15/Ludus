@@ -73,7 +73,7 @@ img#menu-logo.img-responsive{
 }
 
 .menu-panel{
-  margin-top:10px;
+  min-height: 200px;
   color:white;
 }
 

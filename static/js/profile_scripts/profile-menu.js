@@ -4,6 +4,10 @@ $(document).ready(function(){
         $('.menu-panel').fadeOut();
     }
     
+    hideProfilePanels();
+    
+    $('#abt-panel').fadeIn();
+    
     $('.menu-item').click(function(){
     	var menu = $(this).attr('id').substring(0,3);
         if(!$(this).hasClass('menu-active') && menu != 'ctm'){

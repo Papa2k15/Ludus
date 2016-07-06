@@ -16,11 +16,8 @@ def build_all_tables(database):
             ##database_cursor.executescript(forget_password_table_script)
             ##database_cursor.executescript(blog_table_script)
             ##database_cursor.executescript(log_table_script)
-            print "Inserting Sample Users"
             database_cursor.executescript(TEST_user_inserts)
-            print "Inserting Sample User Profile"
             database_cursor.executescript(TEST_user_prof_insert)
-            print "Inserting Security Files"
             database_cursor.executescript(TEST_user_sec_insert)
             print "Operation Complete"
             con.commit()

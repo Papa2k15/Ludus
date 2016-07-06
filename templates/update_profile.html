@@ -100,8 +100,8 @@
         	<div class="col-md-8 col-md-offset-2">        	
         	<ul class="nav nav-tabs">
 			  <li><a data-toggle="tab" href="#home">General Information</a></li>
-			  <li  class="active"><a data-toggle="tab" href="#not">Notifications</a></li>
-			  <li><a data-toggle="tab" href="#sec">Security Settings</a></li>
+			  <li><a data-toggle="tab" href="#not">Notifications</a></li>
+			  <li class="active"><a data-toggle="tab" href="#sec">Security Settings</a></li>
 			</ul>
 			
 			<div class="tab-content">
@@ -275,7 +275,7 @@
 			    	</div>
 			    	
 			  </div>
-			  <div id="not" class="tab-pane fade in active">
+			  <div id="not" class="tab-pane fade">
 			    <h3>Notifications</h3>
 			    <p>All of these notifications will display while on site and an email will be sent to your registered
 			    email {{user['email']}}. You may change these settings below.</p>
@@ -313,17 +313,44 @@
 			    	</tbody>
 			    </table>
 			  </div>
-			  <div id="sec" class="tab-pane fade">
+			  <div id="sec" class="tab-pane fade in active">
 			    <h3>Security</h3>
 			    <p>Update Password</p>
-			    <form>
+			    <form id="update-password-form">
 			    	<div class="row">
-			    		<div class="col-md-6">
-			    			<label>Password</label>
+			    		<div class="col-md-4 form-group">
+			    			<label>Old Password</label>
 			    			<div class="input-group">
 			    				<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
-			    				<input type="password" class="form-control"/>
+			    				<input id="oldpassword" 
+			    				 data-validation="oldpasswordcheck required"
+			    				type="password" class="form-control"/>
 			    			</div>
+			    		</div>
+			    		<div class="col-md-4 form-group">
+			    			<label>New Password</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+			    				<input id="newpassword" 
+			    				 name="password"
+			    				 type="password" class="form-control"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-4 form-group">
+			    			<label>Confirm Password</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+			    				<input 
+			    				name="confirm-password" data-validation="confirmation required"
+                                data-validation-confirm="password"
+                                data-validation-error-msg="Passwords do not match"
+			    				type="password" class="form-control"/>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-12">
+			    			<input type="submit" value="Update Password" class="form-control"/>
 			    		</div>
 			    	</div>
 			    </form>
@@ -331,6 +358,7 @@
 			</div>
         	</div>
         </div>
+        <input id="oldpas" type="hidden" value="{{security['password']}}"/>
         <!-- END CONTENT -->
     </div>
     <script src="../static/js/jquery.min.js"></script>
@@ -342,6 +370,7 @@
     <script src="../static/js/global_scripts/sticky_menu.js"></script>
     <script src="../static/js/global_scripts/util.js"></script>
     <script src="../static/js/custombox.min.js"></script>
+    <script src="../static/js/md5.js"></script>
     <script>
 	$(document).ready(function(){
 		var currentbday = moment('{{dob}}').format("MMMM DD, YYYY");
@@ -356,10 +385,19 @@
 		$('#gender-select').val('{{user["gender"]}}');
 		
 		$.validate({
-	    	  form : '#profile-form',
+	    	  form : '#profile-form,#update-password-form',
 	    	  modules : 'security file toggleDisabled',
 	    	  disabledFormFilter : 'form'
 	    });
+		
+		$.formUtils.addValidator({
+	    	  name : 'oldpasswordcheck',
+	    	  validatorFunction : function(value, $el, config, language, $form) {
+			      return md5($('#oldpassword').val()) == $('#oldpas').val() ;
+	    	  },
+	    	  errorMessage : 'Doesn"t match old password.',
+	    	  errorMessageKey: 'badPassword'
+	    	});
 		
 		$('#profile-form').submit(function(e){
 			var update_user = $.post('/update_user/{{user["id"]}}',$(this).serialize());
@@ -377,6 +415,28 @@
 					 window.setTimeout(function () {
 							location.reload();
 	     		     }, 500);
+				 }
+			});
+			e.preventDefault();
+		});
+		
+		$('#update-password-form').submit(function(e){
+			var update_sec = $.post('/update_security/{{user["id"]}}',$(this).serialize());
+			update_sec.done(function(data){
+				var response = $.parseJSON(data);
+				$('#error-message').html('<span>'+response['description']+'<div class="spinner">'+
+	  					  '<div class="double-bounce1"></div>'+
+	  					 '<div class="double-bounce2"></div>'+
+	  					'</div>');
+				 Custombox.open({
+		              target: '#error-box',
+		              effect: 'fadein'
+		          });
+				 if(response['code'] == 'pg_7'){
+					 window.setTimeout(function () {
+						 console.log('LOL');
+							location.reload();
+	     		     }, 600);
 				 }
 			});
 			e.preventDefault();
