@@ -21,11 +21,7 @@
 	<!-- MENU START -->
 	<nav class="pushy pushy-left">
 		<h2>
-		{% if 'default-profile.png' == about['profilephoto'] %}
-	       	<img src="../static/img/{{about['profilephoto']|safe}}" class="img-responsive"/>
-		{% else %}
-	        <img src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}" class="img-responsive"/>
-		{% endif %}	
+	       	<img src="{{about['profilephoto']|safe}}" class="img-responsive"/>
 		</h2>
 		<h2 class="text-center">{{user['username']|capitalize}}</h2>
 	    <ul>
@@ -38,11 +34,11 @@
 	                <li class="pushy-link"><a href="#">Item 3</a></li>
 	            </ul>
 	        </li>
-	        <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+	       <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+	        <li class="pushy-link"><a href="/feed"><span class="glyphicon glyphicon-menu-hamburger pushy-icon"></span>Stream</a></li>
 	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
 	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
-	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-camera pushy-icon"></span>Photos</a></li>
-	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Videos</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Media</a></li>
 	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
 	        <li class="pushy-submenu">
 	            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
@@ -72,11 +68,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn">
-                {% if 'default-profile.png' == about['profilephoto'] %}
-  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{about['profilephoto']|safe}}"/><span>{{user['username']|capitalize}}</span></a>
-    			{% else %}
-  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}"/><span>{{user['username']|capitalize}}</span></a>
-    			{% endif %}
+	        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="{{about['profilephoto']|safe}}"/><span>{{user['username']|capitalize}}</span></a>
                 </div>
                 <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
             </div>
@@ -232,11 +224,7 @@
 								 data-validation-allowing="jpg, png, gif" 
 								 data-validation-max-size="2M"
 				    			class='form-control'/>
-				    			{% if 'default-profile.png' == about['profilephoto'] %}
-		    			        	<img id="user-profile-img-preview" src="../static/img/{{about['profilephoto']|safe}}" class="img-preview img-thumbnail"/>
-				    			{% else %}
-		    			        	<img id="user-profile-img-preview" src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}" class="img-preview img-thumbnail"/>
-				    			{% endif %}
+	    			        	<img id="user-profile-img-preview" src="{{about['profilephoto']|safe}}" class="img-preview img-thumbnail"/>
 				    			<input type="submit" class="form-control"/>
 				    		</div>
 			    		</form>
@@ -250,11 +238,7 @@
 								 data-validation-allowing="jpg, png, gif" 
 								 data-validation-max-size="2M"
 				    			class="form-control"/>
-		    			        {% if 'default-bg.png' == about['coverphoto'] %}
-		    			        	<img id="user-bg-img-preview" src="../static/img/{{about['coverphoto']|safe}}" class="img-preview img-thumbnail"/>
-				    			{% else %}
-		    			        	<img id="user-bg-img-preview" src="../static/img/{{user['id']}}/{{about['coverphoto']|safe}}" class="img-preview img-thumbnail"/>
-				    			{% endif %}
+	    			        	<img id="user-bg-img-preview" src="{{about['coverphoto']|safe}}" class="img-preview img-thumbnail"/>
 				    			<input type="submit" class="form-control"/>
 				    		</div>
 			    		</form>
@@ -275,7 +259,7 @@
 			    	</div>
 			    	
 			  </div>
-			  <div id="not" class="tab-pane fade">
+			  <div id="not" class="tab-pane fade text-white">
 			    <h3>Notifications</h3>
 			    <p>All of these notifications will display while on site and an email will be sent to your registered
 			    email {{user['email']}}. You may change these settings below.</p>

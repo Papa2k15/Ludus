@@ -5,7 +5,7 @@ from util.database_gen import delete_all_tables, build_all_tables
 import cgi
 from flask.helpers import make_response, url_for, flash
 import time
-from db import user_dao, security_dao, user_profile_dao
+from db import user_dao, security_dao, user_profile_dao, stream_dao
 from util.app_constants import pg_responses, MONTHS
 import json
 import hashlib
@@ -42,11 +42,11 @@ def pg_photo_upload(pt,ID):
             if pt == "profile":
                 save_name = session.get('cuid') + '_profile.' + filename.split('.')[1]
                 user = json.loads(user_profile_dao.get_user_prof(ps_database, session.get('cuid')))
-                user['profilephoto'] = save_name
+                user['profilephoto'] = "..\\" + save_path + "\\" + save_name
             else:
                 save_name = session.get('cuid') + '_bg.' + filename.split('.')[1]
                 user = json.loads(user_profile_dao.get_user_prof(ps_database, session.get('cuid')))
-                user['coverphoto'] = save_name
+                user['coverphoto'] = "..\\" + save_path + "\\"  + save_name
             user_profile_dao.update_user_prof(ps_database, user)
             os.remove(os.path.join(save_path,save_name))
             photo.save(os.path.join(save_path,save_name))
@@ -110,6 +110,14 @@ def user_profile(ID):
     current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, ID))
     return render_template('profile.html', user=current_user, about=current_user_profile)
 
+@pg_app.route('/feed')
+def stream():
+    if not session.get('cuid'):
+        return redirect('/')
+    current_user = json.loads(user_dao.get_user_by_id(ps_database, session.get('cuid')))
+    current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, session.get('cuid')))
+    return render_template('feed.html', user=current_user, about=current_user_profile)
+
 @pg_app.route('/update_profile/<ID>')
 def update_user_profile(ID):
     if not session.get('cuid'):
@@ -122,7 +130,15 @@ def update_user_profile(ID):
     return render_template('update_profile.html', user=current_user, about=current_user_profile,
                            security=current_user_security, dob=iso_date_string(current_user['dateofbirth']))
 
-#Actions
+#Create Methods
+@pg_app.route('/newpost', methods=['POST'])
+def new_post():
+    post_text = cgi.escape(request.form['post'])
+    if stream_dao.add_new_post(ps_database, post_text, session.get('cuid')) is True:
+        return make_response(json.dumps(pg_responses.POST_SUCCES),200)
+    return make_response(json.dumps(pg_responses.POST_ERROR),200)
+
+#Update Methods
 @pg_app.route('/update_user/<ID>', methods=["POST"])
 def update_user(ID):
     fetch_user = json.loads(user_dao.get_user_by_id(ps_database, session.get('cuid')))
@@ -172,6 +188,20 @@ def update_security(ID):
         return make_response(json.dumps(pg_responses.UPDT_SUCCES),200)
     return make_response(json.dumps(pg_responses.UPDT_ERROR),200)
 
+
+#GET METHODS
+@pg_app.route('/stream/<limit>/<offset>')
+def fetch_stream(limit,offset):
+    if not session.get('cuid'):
+        return redirect('/')
+    return make_response(json.dumps(stream_dao.get_all_posts_lo(ps_database, limit, offset)),200)
+
+@pg_app.route('/user_stream/<limit>/<offset>')
+def fetch_user_stream(limit,offset):
+    if not session.get('cuid'):
+        return redirect('/')
+    return make_response(json.dumps(stream_dao.get_posts_for_user_lo(ps_database, session.get('cuid'), limit, offset)),200)
+
 #Error Pages
 @pg_app.errorhandler(401)
 def unauthorized_access(e):
@@ -188,6 +218,9 @@ def age_calc(dob):
 
 def iso_date_string(date):
     return time.strftime("%Y %m %d",time.localtime(int(date)))
+
+def date_time_string(date):
+    return time.strftime("%B %d, %Y at %I:%M %p",time.localtime(int(date)))
 
 def get_date_tuple(date):
     return time.strptime(date_calc(date), "%B %d, %Y") 

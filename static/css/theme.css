@@ -1,5 +1,7 @@
-html, body{
-    overflow-x: hidden;
+
+
+#wrapper {
+	overflow-x: hidden;
     font-family: "Baumans";
     height: 100%;
     -webkit-overflow-scrolling: touch;
@@ -14,6 +16,14 @@ div#sticky-menu{
   padding-top:10px;
   background-color:rgba(255,255,255,.9);
   z-index:100;
+}
+
+#pushy-profile{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	-webkit-clip-path: inset(10% 10% 10% 10%);
+	clip-path: inset(10% 10% 10% 10%);
 }
 
 div#profile-header{
@@ -61,7 +71,6 @@ div#scroll-test{
 img#profile-picture{
   width:200px;
   height:200px;
-  clip: rect(0px,200px,200px,0px);
   margin-top:20px;
   margin-left:calc(50% - 100px);
   border-radius:50%;
@@ -212,6 +221,46 @@ textarea {
 	border-bottom: 2px solid white;
 }
 
-.tab-content {
+.text-white{
 	color:white;
+}
+
+#user-stats img {
+	border: 2px solid white;
+}
+
+#newpost{
+	background-color: rgba(41,44,47,0.5);
+	padding: 10px;
+	border-bottom: 2px solid white;
+}
+
+#newpost textarea {
+	font-size: 20px;
+}
+
+.posts {
+	background-color: white;
+	min-height: 100px;
+	margin-top: 10px;
+	padding: 15px;
+}
+
+.margin-right{
+	margin-right: 10px;
+}
+
+.margin-down{
+	margin-bottom: 10px;
+}
+
+#loading{
+	background-color: transparent;
+}
+
+#loading-img{
+	max-width: 50px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }

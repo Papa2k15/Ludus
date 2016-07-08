@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user['username']|capitalize}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baumans">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="../static/fonts/material-icons.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <link rel="stylesheet" href="../static/css/animate.css">
+    <link rel="stylesheet" href="../static/css/hover.css">
+    <link rel="stylesheet" href="../static/css/pushy.css">
+</head>
+
+<body>
+	<div id="wrapper">
+	<!-- MENU START -->
+	<nav class="pushy pushy-left">
+		<h2>
+       	<img id="pushy-profile" src="{{about['profilephoto']|safe}}" class="img-responsive"/>
+		</h2>
+		<h2 class="text-center">{{user['username']|capitalize}}</h2>
+	    <ul>
+	        <!-- Submenu -->
+	        <li class="pushy-submenu">
+	            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Favorites</a>
+	            <ul>
+	                <li class="pushy-link"><a href="#">Item 1</a></li>
+	                <li class="pushy-link"><a href="#">Item 2</a></li>
+	                <li class="pushy-link"><a href="#">Item 3</a></li>
+	            </ul>
+	        </li>
+	        <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+	        <li class="pushy-link"><a href="/feed"><span class="glyphicon glyphicon-menu-hamburger pushy-icon"></span>Stream</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Media</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
+	        <li class="pushy-submenu">
+	            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
+	            <ul>
+	                <li class="pushy-link"><a href="#">Create New Group</a></li>
+	                <li class="pushy-link"><a href="#">GTV Squad</a></li>
+	                <li class="pushy-link"><a href="#">Item 3</a></li>
+	            </ul>
+	        </li>
+	    </ul>
+	</nav>
+	<div class="site-overlay"></div>
+    <div id="container" class="container-fluid">
+        <div id="sticky-bg"></div>
+        <div id="sticky-menu">
+            <div class="row">
+                <div class="col-md-1 sticky-menu-btn hvr-shadow-radial menu-btn" id="nav-btn"><i class="material-icons">menu</i></div>
+                <div class="col-md-1 col-md-offset-1"><img class="img-responsive" src="../static/img/PlayGroundLogo.png" id="menu-logo"></div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search PlayGround...">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"> <i class="icon ion-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn">
+	        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
+                </div>
+                <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
+            </div>
+            <div id="settings-container">
+            	<ul>
+            		<li><a><i class="material-icons">format_paint</i>Customize</a></li>
+            		<li><a href="/update_profile/{{user['id']}}"><i class="material-icons">edit</i>Update Profile</a></li>
+            		<li><a><i class="material-icons">settings</i>Account Settings</a></li>
+            		<li><a href="/logout"><i class="material-icons">power</i>Log Out</a></li>
+            		<li><a><i class="material-icons">help</i>Help</a></li>
+            		<li><a><i class="material-icons">flag</i>Report an Issue</a></li>
+            	</ul>
+            </div>
+        </div>
+	<!-- MENU END -->
+	<!-- CONTENT START -->
+    <div id="content" class="row">
+    	<div id="user-stats" class="col-md-2 col-md-offset-2">
+        	<a href="/user_profile/{{user['id']}}"><img id="stats-profile" src="{{about['profilephoto']|safe}}" class="img-responsive"/></a>
+    		<h4 class="text-center">{{user['username']|capitalize}}</h4>
+    		<h5 class="text-center text-white">Following - </h5>
+    		<h5 class="text-center text-white">Followers - </h5>
+    	</div>
+    	<div id="newpost" class="col-md-6 col-md-offset-1">
+    		<form id="post-form">
+    		<div class="form-group">
+   				<textarea rows="10" class="form-control" name="post"
+   				data-validation="required"
+   				placeholder="{{user['username']|capitalize}} just wants to say..."></textarea>
+    		</div>
+    		<input class="btn btn-sm pull-right animated  animated infinite pulse" type="submit" value="Post"/>
+    		</form>
+    	</div>
+    	
+    	<div id="stream">
+	    	<div class="posts col-md-6 col-md-offset-5">
+	    		<h4><img src="../static/img/default-profile.png" class="img-responsive post-profile">Papa2k15</h4>
+	    		<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu</p>
+	    		<div class="row">
+	    			<div class="col-md-12">
+		    			<span class="pull-right">
+		    			   	<span class="margin-right">
+			    				<span class="glyphicon glyphicon-heart margin-right"></span>Like
+			    			</span>
+			    			<span>
+			    				<span class="glyphicon glyphicon-comment margin-right"></span>Comment
+			    			</span>
+		    			</span>
+	    			</div>
+	    			<div class="col-md-12">
+	    			<span class="pull-left margin-down">
+	    				<span class="badge">June 15, 2016</span>
+	    			</span>
+	    			<span class="pull-right">
+	    				<span class="badge margin-right">10</span>Comments
+	    			</span>
+	    			<span class="margin-right pull-right">
+	    				<span class="badge margin-right">5</span>Likes 
+	    			</span>
+	    			</div>
+	    			<div class="col-md-12"><p>Comment 1</p></div>
+	    			<div class="col-md-12"><p>Comment 2</p></div>
+	    			<div class="col-md-12"><p>Comment 3</p></div>
+	    			<div class="col-md-12 form-group"><input type="text" class="form-control" placeholder="Comment"/></div>
+	    		</div> 
+	    	</div>
+	    	<div class="posts col-md-6 col-md-offset-5">
+	    		
+	    	</div>
+	    	<div class="posts col-md-6 col-md-offset-5">
+	    		
+	    	</div>
+	    	<div class="posts col-md-6 col-md-offset-5">
+	    		
+	    	</div>
+    	</div>
+    </div>       
+	<!-- CONTENT END -->
+	</div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/pushy.min.js"></script>
+    <script src="../static/js/form-validator/jquery.form-validator.min.js"></script>
+    <script src="../static/js/jquery.endless-scroll.js"></script>
+    <script src="../static/js/global_scripts/sticky_menu.js"></script>
+    <script src="../static/js/feed_scripts/stream_script.js"></script>
+    <script>	
+    $(document).ready(function(){
+    	$('#profile-header').css('background-image','url(../../static/img/{{about["coverphoto"]|safe}})');
+    });
+    </script>
+    </div>
+</body>
+
+</html>

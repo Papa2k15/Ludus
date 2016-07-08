@@ -16,16 +16,11 @@
 </head>
 
 <body>
+	<div id="wrapper">
 	<!-- MENU START -->
 	<nav class="pushy pushy-left">
 		<h2>
-	
-		{% if 'default-profile.png' == about['profilephoto'] %}
-	       	<img src="../static/img/{{about['profilephoto']|safe}}" class="img-responsive"/>
-		{% else %}
-	        <img src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}" class="img-responsive"/>
-		{% endif %}	
-	
+	       	<img id="pushy-profile" src="{{about['profilephoto']|safe}}" class="img-responsive"/>
 		</h2>
 		<h2 class="text-center">{{user['username']|capitalize}}</h2>
 	    <ul>
@@ -39,10 +34,10 @@
 	            </ul>
 	        </li>
 	        <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+	        <li class="pushy-link"><a href="/feed"><span class="glyphicon glyphicon-menu-hamburger pushy-icon"></span>Stream</a></li>
 	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
 	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
-	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-camera pushy-icon"></span>Photos</a></li>
-	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Videos</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Media</a></li>
 	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
 	        <li class="pushy-submenu">
 	            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
@@ -69,12 +64,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn"><a href="/user_profile/{{user['id']}}">
-                {% if 'default-profile.png' == about['profilephoto'] %}
-  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
-    			{% else %}
-  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
-    			{% endif %}
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn">
+ 			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
                 </div>
                 <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
             </div>
@@ -93,12 +84,7 @@
 	<!-- CONTENT START -->
         <div class="row">
             <div class="col-md-8 col-md-offset-2" id="profile-header">
-            {% if 'default-profile.png' == about['profilephoto'] %}
-	        	<img id="profile-picture" src="../static/img/{{about['profilephoto']|safe}}" class="img-responsive"/>
-			{% else %}
-	        	<img id="profile-picture" src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}" class="img-responsive"/>
-			{% endif %}
-            
+	        	<img id="profile-picture" src="{{about['profilephoto']|safe}}" class="img-responsive"/>
                 <h3 class="text-center">{{user['username']|capitalize}}</h3>
                 <h5 class="text-center">Member Since: {{user['membersince']|date_calc}}</h5></div>
         </div>
@@ -211,6 +197,6 @@
     	$('#profile-header').css('background-image','url(../../static/img/{{about["coverphoto"]|safe}})');
     });
     </script>
+    </div>
 </body>
-
 </html>

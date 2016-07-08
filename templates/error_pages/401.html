@@ -17,16 +17,10 @@
 </head>
 
 <body>
+	<div id="wrapper">
 <nav class="pushy pushy-left">
 	<h2>
-
-	{% if 'default-profile.png' == about['profilephoto'] %}
-       	<img src="../static/img/{{about['profilephoto']|safe}}" class="img-responsive"/>
-	{% else %}
-        <img src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}" class="img-responsive"/>
-	{% endif %}	
-	
-
+       	<img id="pushy-profile" src="{{about['profilephoto']|safe}}" class="img-responsive"/>
 	</h2>
 	<h2 class="text-center">{{user['username']|capitalize}}</h2>
     <ul>
@@ -40,10 +34,10 @@
             </ul>
         </li>
         <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+        <li class="pushy-link"><a href="/feed"><span class="glyphicon glyphicon-menu-hamburger pushy-icon"></span>Stream</a></li>
         <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
         <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
-        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-camera pushy-icon"></span>Photos</a></li>
-        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Videos</a></li>
+        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Media</a></li>
         <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
         <li class="pushy-submenu">
             <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
@@ -72,11 +66,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn">
-					 {% if 'default-profile.png' == about['profilephoto'] %}
-  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
-    			{% else %}
-  			        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="../static/img/{{user['id']}}/{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
-    			{% endif %}
+	        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="{{about['profilephoto']|safe}}"/><span>Papa2k15</span></a>
                 </div>
                 <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
             </div>
@@ -118,6 +108,7 @@
     <script src="../../static/js/pushy.min.js"></script>
     <script src="../../static/js/global_scripts/sticky_menu.js"></script>
     <script src="../../static/js/error_script/error_script.js"></script>
+    </div>
 </body>
 
 </html>

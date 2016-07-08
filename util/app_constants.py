@@ -28,6 +28,8 @@ class pg_responses(object):
     UNK_ERROR  = {'code':'pg_error','description':"Something went wrong, please try again."}
     UPDT_SUCCES  = {'code':'pg_7','description':"Profile has been updated successfully."}
     UPDT_ERROR  = {'code':'pg_8','description':"There was an issue updating your profile, please try again."}
+    POST_SUCCES  = {'code':'pg_9','description':"Posted to stream successfully."}
+    POST_ERROR  = {'code':'pg_10','description':"Failed to post."}
 
 class logging_events(object):
     #USER EVENT
