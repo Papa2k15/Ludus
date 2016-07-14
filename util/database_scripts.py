@@ -51,15 +51,13 @@ posts_table_script = """
     );
     """   
 
-comments_table_script = """
-    CREATE TABLE "comment" (
+likes_table_script = """
+    CREATE TABLE "like" (
     `ID`            INTEGER PRIMARY KEY AUTOINCREMENT,
     `postID`        TEXT NOT NULL,
-    `text`          TEXT NOT NULL,
-    `likes`         INTEGER default 0,
     `userID`        TEXT NOT NULL
     );
-    """   
+    """  
 
 log_table_script = """
     CREATE TABLE "log" (
@@ -76,7 +74,7 @@ drop_all_tables_script = """
     DROP TABLE IF EXISTS "userprofile";
     DROP TABLE IF EXISTS "security";
     DROP TABLE IF EXISTS "post";
-    DROP TABLE IF EXISTS "comment";
+    DROP TABLE IF EXISTS "like";
     DROP TABLE IF EXISTS "log";
     DROP TABLE IF EXISTS "forgotpassword";
     """
@@ -86,7 +84,7 @@ clear_all_tables_script = """
     DELETE FROM "userprofile";
     DELETE FROM "security";
     DELETE FROM "post";
-    DELETE FROM "comment";
+    DELETE FROM "like";
     DELETE FROM "log";
     DELETE FROM "forgotpassword";
     """
@@ -108,69 +106,19 @@ insert into security (userid, password) values ('pg_RR53SDDOEFGDP93','8c6f66b742
 """
 
 TEST_stream_insert = """
-insert into post (id, text, likes, userID, datetime) values (1, 'Ruby', 298, 'pg_RR53SDDOEFGDP93', 1692135743);
-insert into post (id, text, likes, userID, datetime) values (2, 'Craig', 241, 'pg_RR53SDDOEFGDP93', 1493400991);
-insert into post (id, text, likes, userID, datetime) values (3, 'Todd', 478, 'pg_RR53SDDOEFGDP93', 1822486777);
-insert into post (id, text, likes, userID, datetime) values (4, 'Jimmy', 414, 'pg_RR53SDDOEFGDP93', 1727868165);
-insert into post (id, text, likes, userID, datetime) values (5, 'Johnny', 311, 'pg_RR53SDDOEFGDP93', 1795160552);
-insert into post (id, text, likes, userID, datetime) values (6, 'Eric', 486, 'pg_RR53SDDOEFGDP93', 1920617886);
-insert into post (id, text, likes, userID, datetime) values (7, 'Clarence', 366, 'pg_RR53SDDOEFGDP93', 1584756159);
-insert into post (id, text, likes, userID, datetime) values (8, 'Katherine', 55, 'pg_RR53SDDOEFGDP93', 1623020654);
-insert into post (id, text, likes, userID, datetime) values (9, 'Dennis', 141, 'pg_RR53SDDOEFGDP93', 1478609225);
-insert into post (id, text, likes, userID, datetime) values (10, 'Carl', 489, 'pg_RR53SDDOEFGDP93', 1594631473);
-insert into post (id, text, likes, userID, datetime) values (11, 'Amanda', 246, 'pg_RR53SDDOEFGDP93', 1554033595);
-insert into post (id, text, likes, userID, datetime) values (12, 'Victor', 151, 'pg_RR53SDDOEFGDP93', 1900571477);
-insert into post (id, text, likes, userID, datetime) values (13, 'Benjamin', 491, 'pg_RR53SDDOEFGDP93', 1599980171);
-insert into post (id, text, likes, userID, datetime) values (14, 'Alice', 461, 'pg_RR53SDDOEFGDP93', 1942642402);
-insert into post (id, text, likes, userID, datetime) values (15, 'Craig', 461, 'pg_RR53SDDOEFGDP93', 1946219110);
-insert into post (id, text, likes, userID, datetime) values (16, 'Mary', 62, 'pg_RR53SDDOEFGDP93', 1874041618);
-insert into post (id, text, likes, userID, datetime) values (17, 'Catherine', 489, 'pg_RR53SDDOEFGDP93', 1492066963);
-insert into post (id, text, likes, userID, datetime) values (18, 'Donna', 375, 'pg_RR53SDDOEFGDP93', 1887045348);
-insert into post (id, text, likes, userID, datetime) values (19, 'Diana', 116, 'pg_RR53SDDOEFGDP93', 1708227537);
-insert into post (id, text, likes, userID, datetime) values (20, 'Steven', 246, 'pg_RR53SDDOEFGDP93', 1816856086);
-insert into post (id, text, likes, userID, datetime) values (21, 'Lori', 331, 'pg_RR53SDDOEFGDP93', 1601198028);
-insert into post (id, text, likes, userID, datetime) values (22, 'Diana', 461, 'pg_RR53SDDOEFGDP93', 1776626247);
-insert into post (id, text, likes, userID, datetime) values (23, 'Robin', 359, 'pg_RR53SDDOEFGDP93', 1962824446);
-insert into post (id, text, likes, userID, datetime) values (24, 'Lisa', 75, 'pg_RR53SDDOEFGDP93', 1579148381);
-insert into post (id, text, likes, userID, datetime) values (25, 'Judy', 379, 'pg_RR53SDDOEFGDP93', 1962563190);
-insert into post (id, text, likes, userID, datetime) values (26, 'Brandon', 56, 'pg_RR53SDDOEFGDP93', 1685099111);
-insert into post (id, text, likes, userID, datetime) values (27, 'Jean', 348, 'pg_RR53SDDOEFGDP93', 1657282442);
-insert into post (id, text, likes, userID, datetime) values (28, 'Helen', 384, 'pg_RR53SDDOEFGDP93', 1937948347);
-insert into post (id, text, likes, userID, datetime) values (29, 'Deborah', 49, 'pg_RR53SDDOEFGDP93', 1778004495);
-insert into post (id, text, likes, userID, datetime) values (30, 'Harry', 209, 'pg_RR53SDDOEFGDP93', 1695063443);
-insert into post (id, text, likes, userID, datetime) values (31, 'Helen', 334, 'pg_RR53SDDOEFGDP93', 1864187885);
-insert into post (id, text, likes, userID, datetime) values (32, 'Russell', 155, 'pg_RR53SDDOEFGDP93', 1667526684);
-insert into post (id, text, likes, userID, datetime) values (33, 'Michael', 10, 'pg_RR53SDDOEFGDP93', 1852195165);
-insert into post (id, text, likes, userID, datetime) values (34, 'Jose', 451, 'pg_RR53SDDOEFGDP93', 1827749125);
-insert into post (id, text, likes, userID, datetime) values (35, 'Cynthia', 66, 'pg_RR53SDDOEFGDP93', 1635374342);
-insert into post (id, text, likes, userID, datetime) values (36, 'Raymond', 186, 'pg_RR53SDDOEFGDP93', 1965356200);
-insert into post (id, text, likes, userID, datetime) values (37, 'Harold', 355, 'pg_RR53SDDOEFGDP93', 1824070348);
-insert into post (id, text, likes, userID, datetime) values (38, 'Gloria', 459, 'pg_RR53SDDOEFGDP93', 1628356388);
-insert into post (id, text, likes, userID, datetime) values (39, 'Jane', 7, 'pg_RR53SDDOEFGDP93', 1554878145);
-insert into post (id, text, likes, userID, datetime) values (40, 'Virginia', 65, 'pg_RR53SDDOEFGDP93', 1650395542);
-insert into post (id, text, likes, userID, datetime) values (41, 'Rachel', 478, 'pg_RR53SDDOEFGDP93', 1791554772);
-insert into post (id, text, likes, userID, datetime) values (42, 'Barbara', 475, 'pg_RR53SDDOEFGDP93', 1942415981);
-insert into post (id, text, likes, userID, datetime) values (43, 'Victor', 483, 'pg_RR53SDDOEFGDP93', 1837291073);
-insert into post (id, text, likes, userID, datetime) values (44, 'Christina', 251, 'pg_RR53SDDOEFGDP93', 1650564446);
-insert into post (id, text, likes, userID, datetime) values (45, 'Christina', 245, 'pg_RR53SDDOEFGDP93', 1625550058);
-insert into post (id, text, likes, userID, datetime) values (46, 'Maria', 21, 'pg_RR53SDDOEFGDP93', 1766588624);
-insert into post (id, text, likes, userID, datetime) values (47, 'Kathryn', 496, 'pg_RR53SDDOEFGDP93', 1567856880);
-insert into post (id, text, likes, userID, datetime) values (48, 'Judy', 247, 'pg_RR53SDDOEFGDP93', 1943451916);
-insert into post (id, text, likes, userID, datetime) values (49, 'Larry', 337, 'pg_RR53SDDOEFGDP93', 1964885188);
-insert into post (id, text, likes, userID, datetime) values (50, 'Debra', 471, 'pg_RR53SDDOEFGDP93', 1544379475);
-insert into post (id, text, likes, userID, datetime) values (51, 'John', 215, 'pg_RR53SDDOEFGDP93', 1648481437);
-insert into post (id, text, likes, userID, datetime) values (52, 'Debra', 377, 'pg_RR53SDDOEFGDP93', 1714360050);
-insert into post (id, text, likes, userID, datetime) values (53, 'Charles', 17, 'pg_RR53SDDOEFGDP93', 1958357171);
-insert into post (id, text, likes, userID, datetime) values (54, 'Ashley', 479, 'pg_RR53SDDOEFGDP93', 1860708446);
-insert into post (id, text, likes, userID, datetime) values (55, 'Harry', 58, 'pg_RR53SDDOEFGDP93', 1684105612);
-insert into post (id, text, likes, userID, datetime) values (56, 'Roger', 195, 'pg_RR53SDDOEFGDP93', 1871077734);
-insert into post (id, text, likes, userID, datetime) values (57, 'Alan', 462, 'pg_RR53SDDOEFGDP93', 1510136448);
-insert into post (id, text, likes, userID, datetime) values (58, 'Heather', 277, 'pg_RR53SDDOEFGDP93', 1564868235);
-insert into post (id, text, likes, userID, datetime) values (59, 'Lawrence', 95, 'pg_RR53SDDOEFGDP93', 1730302920);
-insert into post (id, text, likes, userID, datetime) values (60, 'Dorothy', 496, 'pg_RR53SDDOEFGDP93', 1869108489);
-insert into post (id, text, likes, userID, datetime) values (61, 'Chris', 76, 'pg_RR53SDDOEFGDP93', 1552088065);
-insert into post (id, text, likes, userID, datetime) values (62, 'Henry', 53, 'pg_RR53SDDOEFGDP93', 1936723706);
-insert into post (id, text, likes, userID, datetime) values (63, 'Timothy', 51, 'pg_RR53SDDOEFGDP93', 1486927986);
-insert into post (id, text, likes, userID, datetime) values (64, 'Amanda', 90, 'pg_RR53SDDOEFGDP93', 1789096846);
-insert into post (id, text, likes, userID, datetime) values (65, 'Doris', 142, 'pg_RR53SDDOEFGDP93', 1691730914);
+insert into post (ID, text, userID, likes, datetime) values (1, 'metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod', 'pg_RR53SDDOEFGDP93', 14, 1468044759);
+insert into post (ID, text, userID, likes, datetime) values (2, 'nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra', 'pg_RR53SDDOEFGDP93', 18, 1468051643);
+insert into post (ID, text, userID, likes, datetime) values (3, 'non quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget', 'pg_RR53SDDOEFGDP93', 50, 1468066804);
+insert into post (ID, text, userID, likes, datetime) values (4, 'in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti', 'pg_RR53SDDOEFGDP93', 12, 1468067998);
+insert into post (ID, text, userID, likes, datetime) values (5, 'laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum', 'pg_RR53SDDOEFGDP93', 34, 1468050719);
+insert into post (ID, text, userID, likes, datetime) values (6, 'eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat', 'pg_RR53SDDOEFGDP93', 24, 1468056738);
+insert into post (ID, text, userID, likes, datetime) values (7, 'vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est', 'pg_RR53SDDOEFGDP93', 17, 1468050966);
+insert into post (ID, text, userID, likes, datetime) values (8, 'ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in', 'pg_RR53SDDOEFGDP93', 21, 1468055556);
+insert into post (ID, text, userID, likes, datetime) values (9, 'montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus', 'pg_RR53SDDOEFGDP93', 41, 1468057293);
+insert into post (ID, text, userID, likes, datetime) values (10, 'gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis', 'pg_RR53SDDOEFGDP93', 14, 1468066110);
+insert into post (ID, text, userID, likes, datetime) values (11, 'tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id', 'pg_RR53SDDOEFGDP93', 41,  1468058818);
+insert into post (ID, text, userID, likes, datetime) values (12, 'quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices', 'pg_RR53SDDOEFGDP93', 16, 1468049627);
+insert into post (ID, text, userID, likes, datetime) values (13, 'pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus', 'pg_RR53SDDOEFGDP93', 5, 1468069899);
+insert into post (ID, text, userID, likes, datetime) values (14, 'feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat', 'pg_RR53SDDOEFGDP93', 48, 1468044923);
+insert into post (ID, text, userID, likes, datetime) values (15, 'lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non', 'pg_RR53SDDOEFGDP93', 40, 1468068235);
 """

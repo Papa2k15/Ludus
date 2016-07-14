@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{user['username']|capitalize}}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baumans">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="../static/js/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="../static/css/custombox.min.css">
+    <link rel="stylesheet" href="../static/fonts/material-icons.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <link rel="stylesheet" href="../static/css/hover.css">
+    <link rel="stylesheet" href="../static/css/pushy.css">
+</head>
+
+<body>
+	<!-- MENU START -->
+	<nav class="pushy pushy-left">
+		<h2>
+	       	<img id="pushy-profile" src="{{about['profilephoto']|safe}}" class="img-responsive"/>
+		</h2>
+		<h2 class="text-center">{{user['username']|capitalize}}</h2>
+	    <ul>
+	        <!-- Submenu -->
+	        <li class="pushy-submenu">
+	            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Favorites</a>
+	            <ul>
+	                <li class="pushy-link"><a href="#">Item 1</a></li>
+	                <li class="pushy-link"><a href="#">Item 2</a></li>
+	                <li class="pushy-link"><a href="#">Item 3</a></li>
+	            </ul>
+	        </li>
+	       <li class="pushy-link"><a href="/user_profile/{{user['id']}}"><span class="glyphicon glyphicon-user pushy-icon"></span>Profile</a></li>
+	        <li class="pushy-link"><a href="/feed"><span class="glyphicon glyphicon-menu-hamburger pushy-icon"></span>Stream</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-user pushy-icon"></span>Friends</a></li>
+	        <li class="pushy-link"><a href="/game"><span class="glyphicon glyphicon-tower pushy-icon"></span>Games</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-film pushy-icon"></span>Media</a></li>
+	        <li class="pushy-link"><a href="#"><span class="glyphicon glyphicon-stats pushy-icon"></span>Statistics</a></li>
+	        <li class="pushy-submenu">
+	            <a href="#"><span class="glyphicon glyphicon-star pushy-icon"></span>Clans</a>
+	            <ul>
+	                <li class="pushy-link"><a href="#">Create New Group</a></li>
+	                <li class="pushy-link"><a href="#">GTV Squad</a></li>
+	                <li class="pushy-link"><a href="#">Item 3</a></li>
+	            </ul>
+	        </li>
+	    </ul>
+	</nav>
+	
+	<div class="site-overlay"></div>
+
+    <div id="container" class="container-fluid">
+        <div id="sticky-bg"></div>
+        <div id="sticky-menu">
+            <div class="row">
+                <div class="col-md-1 sticky-menu-btn hvr-shadow-radial menu-btn" id="nav-btn"><i class="material-icons">menu</i></div>
+                <div class="col-md-1 col-md-offset-1"><img class="img-responsive" src="../static/img/PlayGroundLogo.png" id="menu-logo"></div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search PlayGround...">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"> <i class="icon ion-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-offset-1 hvr-shadow-radial" id="profile-btn">
+	        	<a href="/user_profile/{{user['id']}}"><img id="menu-profile-picture" src="{{about['profilephoto']|safe}}"/><span>{{user['username']|capitalize}}</span></a>
+                </div>
+                <div class="col-md-1 col-md-offset-1 sticky-menu-btn hvr-shadow-radial" id="settings-btn"><i class="material-icons">keyboard_arrow_down</i></div>
+            </div>
+            <div id="settings-container">
+            	<ul>
+            		<li><a><i class="material-icons">format_paint</i>Customize</a></li>
+            		<li><a href="/update_profile/{{user['id']}}"><i class="material-icons">edit</i>Update Profile</a></li>
+            		<li><a><i class="material-icons">settings</i>Account Settings</a></li>
+            		<li><a href="/logout"><i class="material-icons">power</i>Log Out</a></li>
+            		<li><a><i class="material-icons">help</i>Help</a></li>
+            		<li><a><i class="material-icons">flag</i>Report an Issue</a></li>
+            	</ul>
+            </div>
+        </div>
+		<!-- MENU END -->
+		<div id="error-box" hidden="">
+	    	<span id="error-message"></span>
+	    </div>
+        <!-- CONTENT -->
+        <div id="content" class="row">
+        	<div class="col-md-8 col-md-offset-2">        	
+        	<ul class="nav nav-tabs">
+			  <li><a data-toggle="tab" href="#home">General Information</a></li>
+			  <li><a data-toggle="tab" href="#not">Notifications</a></li>
+			  <li class="active"><a data-toggle="tab" href="#sec">Security Settings</a></li>
+			</ul>
+			
+			<div class="tab-content">
+			  <div id="home" class="tab-pane fade">
+			    <h3>General Information</h3>
+			    <h4>Personal</h4>
+			    <form id="profile-form">
+			    	<div class="row">
+			    		<div class="col-md-4 form-group">
+			    			<label>First Name</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+			    				<input type="text" class="form-control" name="firstname"
+			    				data-validation="required"
+			    				value="{{user['firstname']|capitalize}}"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-4 form-group">
+			    			<label>Last Name</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+			    				<input type="text" class="form-control" name="lastname"
+			    				data-validation="required"
+			    				value="{{user['lastname']|capitalize}}"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-4 form-group">
+			    			<label>Username</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span>@</span></div>
+			    				<input type="text" class="form-control" name="username"
+			    				maxlength="16"
+			    				data-validation="required alphanumeric"
+                                data-validation-allowing="-_"
+			    				value="{{user['username']|capitalize}}"/>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-6 form-group">
+			    			<label>Email</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+			    				<input type="email" class="form-control" name="email"
+			    				data-validation="email required"
+			    				value="{{user['email']}}"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-3 form-group">
+			    			<label>Birthday</label>
+			    			<div class="input-group" id="birthdayselect">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+			    				<input value="{{user['dateofbirth']|date_calc}}" name="dateofbirth" 
+			    				data-validation="required"
+			    				class="form-control"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-3 form-group">
+			    			<label>Gender</label>
+			    			<select id="gender-select" name="gender"
+			    			class="form-control">
+			    				<option value="male">Male</option>
+			    				<option value="female">Female</option>
+			    			</select>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-12 form-group">
+			    			<input type="submit" value="Update Personal" class="form-control"/>
+			    		</div>
+			    	</div>
+			    </form>
+			    <form id="about-form">
+			    	<div class="row">
+			    		<div class="col-md-12 form-group">
+			    			<label>Biography <span id="maxlength" class="badge">300</span> characters left</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+			    				<textarea id="bio" rows="3" maxlength="300" name="biography"
+			    				class="form-control">{{about['biography']}}</textarea>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-4 form-group">
+			    			<label>Xbox Gamertag</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><i class="icon ion-xbox"></i></div>
+			    				<input name="xbxgt" type="text" 
+			    				maxlength="15"
+			    				value="{{about['xbxgt']}}" class="form-control"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-4 form-group">
+			    			<label>Playstation Gamertag</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><i class="icon ion-playstation"></i></div>
+			    				<input name="plsgt" type="text" 
+			    				maxlength="16"
+			    				value="{{about['plsgt']}}" class="form-control"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-4 form-group">
+			    			<label>Steam Gamertag</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><i class="icon ion-steam"></i></div>
+			    				<input name="stmgt" type="text" 
+			    				maxlength="32"
+			    				value="{{about['stmgt']}}" class="form-control"/>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-12 form-group">
+			    			<input type="submit" value="Update About" class="form-control"/>
+			    		</div>
+			    	</div>
+			    </form>
+			    
+			    	<div class="row">
+			    		<form id="profile-photo-form" method="post" 
+			    		enctype=multipart/form-data
+			    		action="/upload_img/profile/{{user['id']}}">
+				    		<div class="col-md-4 form-group">
+				    			<label>Profile Photo</label>
+				    			<input type="file" id="profile-upload"
+				    			 data-validation="mime size" name="photo"
+								 data-validation-allowing="jpg, png, gif" 
+								 data-validation-max-size="2M"
+				    			class='form-control'/>
+	    			        	<img id="user-profile-img-preview" src="{{about['profilephoto']|safe}}" class="img-preview img-thumbnail"/>
+				    			<input type="submit" class="form-control"/>
+				    		</div>
+			    		</form>
+			    		<form id="profile-photo-form" method="post" 
+			    		enctype=multipart/form-data
+			    		action="/upload_img/cover/{{user['id']}}">
+				    		<div class="col-md-4 form-group">
+				    			<label>Cover Photo</label>
+				    			<input type="file" id="cover-upload"
+				    			 data-validation="mime size" name="photo"
+								 data-validation-allowing="jpg, png, gif" 
+								 data-validation-max-size="2M"
+				    			class="form-control"/>
+	    			        	<img id="user-bg-img-preview" src="{{about['coverphoto']|safe}}" class="img-preview img-thumbnail"/>
+				    			<input type="submit" class="form-control"/>
+				    		</div>
+			    		</form>
+			    		<form id="profile-photo-form" method="post" 
+			    		enctype=multipart/form-data
+			    		action="/upload_img/fs/{{user['id']}}">
+				    		<div class="col-md-4 form-group">
+				    			<label>Fullscreen Photo</label>
+				    			<input type="file" id="fs-photo"
+				    			 data-validation="mime size" name="photo"
+								 data-validation-allowing="jpg, png, gif" 
+								 data-validation-max-size="2M"
+				    			class="form-control"/>
+		    			        <img id="user-fs-img-preview" src="../static/img/{{about['coverphoto']|safe}}" class="img-preview img-thumbnail"/>
+				    			<input type="submit" class="form-control"/>
+				    		</div>
+			    		</form>
+			    	</div>
+			    	
+			  </div>
+			  <div id="not" class="tab-pane fade text-white">
+			    <h3>Notifications</h3>
+			    <p>All of these notifications will display while on site and an email will be sent to your registered
+			    email {{user['email']}}. You may change these settings below.</p>
+			    <h4>Play sound for notifcations? Yes<input type="radio" name="notsound"/> No<input type="radio" name="notsound"/></h4>
+			    <h4><select class="form-control">
+			    	<option>Sound 1</option>
+			    	<option>Sound 2</option>
+			    	<option>Sound 3</option>
+			    	<option>Sound 4</option>
+			    </select></h4>
+			    <table class="table table-condensed table-responsive">
+			    	<thead class="text-center">
+			    		<tr>
+			    		<td>
+			    		Notification
+			    		</td>
+			    		<td>
+			    		Site
+			    		</td>
+			    		<td>
+			    		Email
+			    		</td>
+			    		</tr>
+			    	</thead>
+			    	<tbody>
+			    		<tr><td>Someone follows me</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    		<tr><td>Someone sends me a friend request</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    		<tr><td>Someone posts on my wall</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    		<tr><td>Someone likes or comments on my post</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    		<tr><td>Someone mentions my username</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    		<tr><td>Upcoming event</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    		<tr><td>My friend is playing the same game as me</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    		<tr><td>Friend of inner circle is online</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    		<tr><td>Group activity</td><td><input type="checkbox" class="form-control"/></td><td><input type="checkbox" class="form-control"/></td></tr>
+			    	</tbody>
+			    </table>
+			  </div>
+			  <div id="sec" class="tab-pane fade in active">
+			    <h3>Security</h3>
+			    <p>Update Password</p>
+			    <form id="update-password-form">
+			    	<div class="row">
+			    		<div class="col-md-4 form-group">
+			    			<label>Old Password</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+			    				<input id="oldpassword" 
+			    				 data-validation="oldpasswordcheck required"
+			    				type="password" class="form-control"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-4 form-group">
+			    			<label>New Password</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+			    				<input id="newpassword" 
+			    				 name="password"
+			    				 type="password" class="form-control"/>
+			    			</div>
+			    		</div>
+			    		<div class="col-md-4 form-group">
+			    			<label>Confirm Password</label>
+			    			<div class="input-group">
+			    				<div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+			    				<input 
+			    				name="confirm-password" data-validation="confirmation required"
+                                data-validation-confirm="password"
+                                data-validation-error-msg="Passwords do not match"
+			    				type="password" class="form-control"/>
+			    			</div>
+			    		</div>
+			    	</div>
+			    	<div class="row">
+			    		<div class="col-md-12">
+			    			<input type="submit" value="Update Password" class="form-control"/>
+			    		</div>
+			    	</div>
+			    </form>
+			  </div>
+			</div>
+        	</div>
+        </div>
+        <input id="oldpas" type="hidden" value="{{security['password']}}"/>
+        <!-- END CONTENT -->
+    </div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/moment-with-locales.js"></script>
+    <script src="../static/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../static/js/form-validator/jquery.form-validator.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/pushy.min.js"></script>
+    <script src="../static/js/global_scripts/sticky_menu.js"></script>
+    <script src="../static/js/global_scripts/util.js"></script>
+    <script src="../static/js/custombox.min.js"></script>
+    <script src="../static/js/md5.js"></script>
+    <script>
+	$(document).ready(function(){
+		var currentbday = moment('{{dob}}').format("MMMM DD, YYYY");
+
+		$('#birthdayselect').datetimepicker({
+			format: "MMMM DD, YYYY",
+			useCurrent:false,
+			defaultDate: currentbday,
+			maxDate: moment([moment().year(), 11, 31]).subtract(13, 'years')
+		});
+		
+		$('#gender-select').val('{{user["gender"]}}');
+		
+		$.validate({
+	    	  form : '#profile-form,#update-password-form',
+	    	  modules : 'security file toggleDisabled',
+	    	  disabledFormFilter : 'form'
+	    });
+		
+		$.formUtils.addValidator({
+	    	  name : 'oldpasswordcheck',
+	    	  validatorFunction : function(value, $el, config, language, $form) {
+			      return md5($('#oldpassword').val()) == $('#oldpas').val() ;
+	    	  },
+	    	  errorMessage : 'Doesn"t match old password.',
+	    	  errorMessageKey: 'badPassword'
+	    	});
+		
+		$('#profile-form').submit(function(e){
+			var update_user = $.post('/update_user/{{user["id"]}}',$(this).serialize());
+			update_user.done(function(data){
+				var response = $.parseJSON(data);
+				$('#error-message').html('<span>'+response['description']+'<div class="spinner">'+
+	  					  '<div class="double-bounce1"></div>'+
+	  					 '<div class="double-bounce2"></div>'+
+	  					'</div>');
+				 Custombox.open({
+		              target: '#error-box',
+		              effect: 'fadein'
+		          });
+				 if(repsonse['code'] == 'pg_7'){
+					 window.setTimeout(function () {
+							location.reload();
+	     		     }, 500);
+				 }
+			});
+			e.preventDefault();
+		});
+		
+		$('#update-password-form').submit(function(e){
+			var update_sec = $.post('/update_security/{{user["id"]}}',$(this).serialize());
+			update_sec.done(function(data){
+				var response = $.parseJSON(data);
+				$('#error-message').html('<span>'+response['description']+'<div class="spinner">'+
+	  					  '<div class="double-bounce1"></div>'+
+	  					 '<div class="double-bounce2"></div>'+
+	  					'</div>');
+				 Custombox.open({
+		              target: '#error-box',
+		              effect: 'fadein'
+		          });
+				 if(response['code'] == 'pg_7'){
+					 window.setTimeout(function () {
+						 console.log('LOL');
+							location.reload();
+	     		     }, 600);
+				 }
+			});
+			e.preventDefault();
+		});
+		
+		$('#about-form').submit(function(e){
+			var update_user = $.post('/update_profile/{{user["id"]}}',$(this).serialize());
+			update_user.done(function(data){
+				var response = $.parseJSON(data);
+				$('#error-message').html('<span>'+response['description']+'<div class="spinner">'+
+	  					  '<div class="double-bounce1"></div>'+
+	  					 '<div class="double-bounce2"></div>'+
+	  					'</div>');
+				 Custombox.open({
+		              target: '#error-box',
+		              effect: 'fadein'
+		          });
+				 if(repsonse['code'] == 'pg_7'){
+					 window.setTimeout(function () {
+							location.reload();
+	     		     }, 500);
+				 }
+			});
+			e.preventDefault();
+		});
+		
+		  $('#bio').restrictLength($('#maxlength'));
+		  
+		  $("#profile-form").isValid()
+		  $("#about-form").isValid()
+		  
+		  function readURL(input, preview) {
+		        if (input.files && input.files[0]) {
+		            var reader = new FileReader();
+		            
+		            reader.onload = function (e) {
+		            	preview.attr('src', e.target.result);
+		            }
+		            
+		            reader.readAsDataURL(input.files[0]);
+		        }
+		    }
+		    
+		    $("#profile-upload").change(function(){
+		        readURL(this, $('#user-profile-img-preview'));
+		    });
+		    
+		    $("#cover-upload").change(function(){
+		        readURL(this, $('#user-bg-img-preview'));
+		    });
+
+	});
+    </script>
+</body>
+</html>

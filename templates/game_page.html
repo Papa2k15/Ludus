@@ -87,29 +87,64 @@
 	<!-- MENU END -->
 	<!-- CONTENT START -->
     <div id="content" class="row">
-    	<div id="user-stats" class="col-md-2 col-md-offset-2">
-        	<a href="/user_profile/{{user['id']}}"><img id="stats-profile" src="{{about['profilephoto']|safe}}" class="img-responsive"/></a>
-    		<h4 class="text-center">{{user['username']|capitalize}}</h4>
-    		<h5 class="text-center text-white">Following - </h5>
-    		<h5 class="text-center text-white">Followers - </h5>
+    	<div class="col-md-12">
+    		<h2>Game Collection <small><span class="badge">9</span> Games</small></h2>
     	</div>
-    	<div id="newpost" class="col-md-6 col-md-offset-1">
-    		<form id="post-form">
-    		<div class="form-group">
-   				<textarea id="post-textarea" rows="10" class="form-control" name="post"
-   				data-validation="required"
-   				placeholder="{{user['username']|capitalize}} just wants to say..."></textarea>
-    		</div>
-    		<input class="btn btn-sm pull-right animated infinite pulse" type="submit" value="Post"/>
-    		</form>
-    	</div>
-    	
-    	<div id="stream">
-	    	
-    	</div>
-    	<div id="post-modal" hidden="">
-    		
-    	</div>
+   		<div id="addgame" class="col-md-6 col-md-offset-3 text-center">
+   			<div class="container-fluid">
+   				<div class="row">
+   					<div id="newgame"class="col-md-6 right-border">
+  							<h3>New Game</h3>
+  							<div class="input-group">
+	   							<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+	   							<input type="text" class="form-control" />
+   							</div>
+   							<div class="input-group">
+	   							<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+	   							<textarea class="form-control"></textarea>
+   							</div>
+   							<div class="input-group">
+	   							<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+	   							<input type="date" class="form-control" />
+   							</div>
+   							<div class="input-group">
+	   							<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+	   							<input type="text" class="form-control" />
+   							</div>
+   							<div class="input-group">
+	   							<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+	   							<input type="text" class="form-control" />
+   							</div>
+   							<div class="input-group">
+	   							<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+	   							<input type="url" class="form-control" />
+   							</div>
+   					</div>
+   					<div id="searchgame" class="col-md-6">
+   						<h3>Search Games</h3>
+   						<div class="input-group">
+   							<div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+   							<input type="text" class="form-control" />
+   						</div>
+   						<select size="20" class="form-control">
+						  <option value="volvo">Volvo</option>
+						  <option value="saab">Saab</option>
+						  <option value="opel">Opel</option>
+						  <option value="audi">Audi</option>
+						</select>
+   					</div>
+   				</div>
+   			</div>
+   		</div>
+    	<div id="games-container" class="col-md-12">
+			<div class="cell">l</div>
+			<div class="cell">g</div>
+			<div class="cell">f</div>
+			<div class="cell">s</div>
+			<div class="cell">d</div>
+			<div class="cell">f</div>
+			<div class="cell">g</div>
+		</div>
     </div>       
 	<!-- CONTENT END -->
 	</div>
@@ -119,11 +154,34 @@
     <script src="../static/js/form-validator/jquery.form-validator.min.js"></script>
     <script src="../static/js/moment-with-locales.js"></script>
     <script src="../static/js/custombox.min.js"></script>
+    <script src="../static/js/freewall.js"></script>
     <script src="../static/js/global_scripts/sticky_menu.js"></script>
     <script src="../static/js/feed_scripts/stream_script.js"></script>
     <script>	
     $(document).ready(function(){
     	$('#profile-header').css('background-image','url(../../static/img/{{about["coverphoto"]|safe}})');
+    	
+    	var temp = "<div class='cell' style='width:{width}px; height: {height}px; background-image: url(i/photo/{index}.jpg)'></div>";
+    	var w = 200, h = 200, html = '', limitItem = 99;
+    	for (var i = 0; i < limitItem; ++i) {
+    		html += temp.replace(/\{height\}/g, h).replace(/\{width\}/g, w).replace("{index}", i + 1);
+    	}
+    	$("#games-container").html(html);
+
+    	var wall = new Freewall("#games-container");
+    	wall.reset({
+    		selector: '.cell',
+    		animate: true,
+    		cellW: 200,
+    		cellH: 200,
+    		onResize: function() {
+    			wall.refresh();
+    		}
+    	});
+    	wall.fitWidth();
+    	// for scroll bar appear;
+    	$(window).trigger("resize");
+    
     });
     </script>
     </div>

@@ -118,6 +118,15 @@ def stream():
     current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, session.get('cuid')))
     return render_template('feed.html', user=current_user, about=current_user_profile)
 
+@pg_app.route('/game')
+def game():
+    if not session.get('cuid'):
+        return redirect('/')
+    current_user = json.loads(user_dao.get_user_by_id(ps_database, session.get('cuid')))
+    current_user_profile = json.loads(user_profile_dao.get_user_prof(ps_database, session.get('cuid')))
+    return render_template('game_page.html', user=current_user, about=current_user_profile)
+
+
 @pg_app.route('/update_profile/<ID>')
 def update_user_profile(ID):
     if not session.get('cuid'):
@@ -188,8 +197,24 @@ def update_security(ID):
         return make_response(json.dumps(pg_responses.UPDT_SUCCES),200)
     return make_response(json.dumps(pg_responses.UPDT_ERROR),200)
 
+@pg_app.route('/like/<postID>', methods=["POST"])
+def like_post(postID):
+    if stream_dao.check_like(ps_database, postID, session.get('cuid')) is False:
+        if stream_dao.add_like(ps_database, postID, session.get('cuid')) is True:
+            return make_response('GOOD',200)
+    else: 
+        if stream_dao.remove_like(ps_database, postID, session.get('cuid')) is True:
+            return make_response('GOOD',200)
+    return make_response('BAD',200)
 
 #GET METHODS
+@pg_app.route('/fetch_post/<postID>')
+def fetch_post(postID):
+    if not session.get('cuid'):
+        return redirect('/')
+    post = json.loads(stream_dao.get_post(ps_database, postID))
+    return make_response(json.dumps({'post':post}),200)
+
 @pg_app.route('/stream/<limit>/<offset>')
 def fetch_stream(limit,offset):
     if not session.get('cuid'):
@@ -202,6 +227,12 @@ def fetch_user_stream(limit,offset):
         return redirect('/')
     return make_response(json.dumps(stream_dao.get_posts_for_user_lo(ps_database, session.get('cuid'), limit, offset)),200)
 
+@pg_app.route('/user_info/<ID>')
+def fetch_user_info_n_profile(ID):
+    info = user_dao.get_user_by_id(ps_database, ID)
+    profile = user_profile_dao.get_user_prof(ps_database, ID)
+    return make_response(json.dumps({'info':info,'profile':profile}),200)
+    
 #Error Pages
 @pg_app.errorhandler(401)
 def unauthorized_access(e):
@@ -219,7 +250,7 @@ def age_calc(dob):
 def iso_date_string(date):
     return time.strftime("%Y %m %d",time.localtime(int(date)))
 
-def date_time_string(date):
+def post_datetime_string(date):
     return time.strftime("%B %d, %Y at %I:%M %p",time.localtime(int(date)))
 
 def get_date_tuple(date):
